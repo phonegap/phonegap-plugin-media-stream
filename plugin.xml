@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<plugin xmlns="http://cordova.apache.org/ns/plugins/1.0"
+           id="phonegap-plugin-media-stream"
+      version="0.0.1">
+    <name>MediaStream</name>
+
+    <js-module src="www/mediastream.js" name="mediastream">
+        <clobbers target="navigator.mediaDevices" />
+    </js-module>
+    <dependency id="es6-promise-plugin"/>
+</plugin>
