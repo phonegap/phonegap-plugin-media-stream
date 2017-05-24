@@ -45,7 +45,6 @@ exports.defineAutoTests = function () {
                 promise.then(function (info){
                     expect(info).toBeDefined();
                     expect(typeof info).toBe('object');
-                    console.log(info);
                     info.forEach(function(device) {
                         expect(device.deviceId).toBeDefined();
                         expect(device.kind).toBeDefined();
@@ -66,6 +65,38 @@ exports.defineAutoTests = function () {
                 fail(err);
                 done();
             }
+
+        });
+
+        it('getSupportedConstraints should return a promise with attributes', function(){
+            
+                var support = navigator.mediaDevices.getSupportedConstraints();
+                expect(support.width).toBeDefined();
+                expect(support.height).toBeDefined();
+                expect(support.aspectRatio).toBeDefined();
+                expect(support.frameRate).toBeDefined();
+                expect(support.facingMode).toBeDefined();
+                expect(support.volume).toBeDefined();
+                expect(support.sampleRate).toBeDefined();
+                expect(support.sampleSize).toBeDefined();
+                expect(support.echoCancellation).toBeDefined();
+                expect(support.latency).toBeDefined();
+                expect(support.channelCount).toBeDefined();
+                expect(support.deviceId).toBeDefined();
+                expect(support.groupId).toBeDefined();
+                expect(typeof support.width).toBe('boolean');
+                expect(typeof support.height).toBe('boolean');
+                expect(typeof support.aspectRatio).toBe('boolean');
+                expect(typeof support.frameRate).toBe('boolean');
+                expect(typeof support.facingMode).toBe('boolean');
+                expect(typeof support.volume).toBe('boolean');
+                expect(typeof support.sampleRate).toBe('boolean');
+                expect(typeof support.sampleSize).toBe('boolean');
+                expect(typeof support.echoCancellation).toBe('boolean');
+                expect(typeof support.latency).toBe('boolean');
+                expect(typeof support.channelCount).toBe('boolean');
+                expect(typeof support.deviceId).toBe('boolean');
+                expect(typeof support.groupId).toBe('boolean');
 
         });
 
