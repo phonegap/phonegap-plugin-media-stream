@@ -30,5 +30,12 @@
         <js-module src="www/mediastream.js" name="mediastream">
             <clobbers target="navigator.mediaDevices" />
         </js-module>
+        <config-file target="config.xml" parent="/*">
+            <feature name="MediaStream">
+                <param name="ios-package" value="CDVMediaStream" />
+            </feature>
+        </config-file>
+        <header-file src="src/ios/CDVMediaStream.h" />
+        <source-file src="src/ios/CDVMediaStream.m" />
     </platform>
 </plugin>
