@@ -1,4 +1,3 @@
-cordova.define("phonegap-plugin-media-stream.mediastream", function(require, exports, module) {
 /* global cordova:false */
 /* globals window, Promise */
 
@@ -71,5 +70,3 @@ var exec = cordova.require('cordova/exec'),
 
 
 module.exports = mediaDevices;
-
-});
