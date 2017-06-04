@@ -29,7 +29,7 @@
 @property (nonatomic) AVCaptureSession *session;
 
 - (void)enumerateDevices:(CDVInvokedUrlCommand*)command;
-- (void)getSupportedConstraints:(CDVInvokedUrlCommand*)command
-- (void)getUserMedia:(CDVInvokedUrlCommand*)command
+- (void)getSupportedConstraints:(CDVInvokedUrlCommand*)command;
+- (void)getUserMedia:(CDVInvokedUrlCommand*)command;
 
 @end
