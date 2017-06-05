@@ -94,9 +94,7 @@
     [supportedConstraints setObject:[NSNumber numberWithBool:NO] forKey:@"groupId"];
 
     CDVPluginResult* result = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK messageAsDictionary:supportedConstraints];
-    [result setKeepCallbackAsBool:YES];
     [self.commandDelegate sendPluginResult:result callbackId:command.callbackId];
-
 }
 
 - (void)getUserMedia:(CDVInvokedUrlCommand*)command
