@@ -3,10 +3,13 @@
 
 var exec = cordova.require('cordova/exec'),
     utils = cordova.require('cordova/utils'),
-    flagConstraints = 0,
-    flagDevices = 0;
+    flagConstraints = true,
+    flagDevices = true;
 
-var mediaDevices = {};
+var mediaDevices = {
+    _devices: null
+};
+
 var supportedConstraints = {
     'width' : true ,
     'height': true ,
@@ -30,30 +33,30 @@ mediaDevices.getSupportedConstraints = function() {
     };
 
     // assign new values returned from native ios ; until then default values returned
-	if(flagConstraints !== 0) {
+	if(flagConstraints) {
        exec(success, null, 'MediaStream', 'getSupportedConstraints', []);
     }
 
-    flagConstraints = 1;
+    flagConstraints = false;
     return supportedConstraints;
 };
 
 mediaDevices.enumerateDevices = function() {
-    var devices = {};
+    var that = this;
+    return new Promise(function(resolve, reject) {
+        var success = function(device) {
+            flagDevices = false;
+            console.log('success ' + device.devices);
+            that._devices = device.devices ;
+            resolve(that._devices);
+        };
 
-    var success = function(device) {
-       console.log(device.devices);
-       devices = device.devices ;
-    };
-
-    if(flagDevices !== 0){
-        exec(success, null, 'MediaStream', 'enumerateDevices', []);
-    }
-
-    flagDevices = 1;
-    return devices;
-    //	return new Promise(function(resolve,reject){
-    // });
+        if(flagDevices){
+            exec(success, null, 'MediaStream', 'enumerateDevices', []);
+        } else {
+            resolve(that._devices);
+        }
+    });
 };
 
 
