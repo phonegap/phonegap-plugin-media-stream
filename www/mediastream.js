@@ -61,11 +61,15 @@ mediaDevices.enumerateDevices = function() {
 
 
 mediaDevices.getUserMedia = function(constraints) {
-    exec(null, null, 'MediaStream', 'getUserMedia', constraints);
+    return new Promise(function(resolve,reject){
+        var success = function(getMediaTracks){
+            console.log('mediatrack' + getMediaTracks);
+            resolve(getMediaTracks);
+            }
+            var args = [constraints];
+            exec(success, null, 'MediaStream', 'getUserMedia', args);
 
-    //	return new Promise(function(resolve,reject){
-
-    // });
+     });
 };
 
 module.exports = mediaDevices;
