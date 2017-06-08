@@ -108,18 +108,22 @@
     NSLog(@"%@", dict[@"audio"]);
     NSLog(@"%@", dict[@"video"]);
     
+    
     BOOL audio = [[dict valueForKey:@"audio"] boolValue];
-    if([[[dict valueForKey:@"video"] valueForKey:@"facingMode"]  isEqual: @"user"])
-    {
-        //facingMode is user
-        video = YES;
-        facingMode = @"user";
-    }
-    else if([[[dict valueForKey:@"video"] valueForKey:@"facingMode"]  isEqual: @"environment"])
-    {
-        //facingMode is environment
-        video = YES;
-        facingMode = @"environment";
+    
+    if([dict valueForKey:@"video"] != (void*)kCFBooleanTrue && [dict valueForKey:@"video"] != (void*)kCFBooleanFalse){
+        if([[[dict valueForKey:@"video"] valueForKey:@"facingMode"]  isEqual: @"user"])
+        {
+            //facingMode is user
+            video = YES;
+            facingMode = @"user";
+        }
+        else if([[[dict valueForKey:@"video"] valueForKey:@"facingMode"]  isEqual: @"environment"])
+        {
+            //facingMode is environment
+            video = YES;
+            facingMode = @"environment";
+        }
     }
     else{
         video = [[dict valueForKey:@"video"] boolValue];
@@ -133,10 +137,12 @@
     if(video == YES){
         for (AVCaptureDevice *device in devices) {
             NSMutableDictionary *videoTracks = [NSMutableDictionary dictionaryWithCapacity:5];
+            NSString *uuid = [[NSUUID UUID] UUIDString];
             
             //intend to pass the camera requested in constraints by the user
             
             if(device.position == AVCaptureDevicePositionFront){
+                [videoTracks setObject:uuid forKey:@"id"];
                 [videoTracks setObject:@"frontcamera" forKey:@"kind"];
                 [videoTracks setObject:device.description forKey:@"description"];
                 if([facingMode isEqualToString: @"user"] || [facingMode isEqualToString: @""]){
@@ -144,6 +150,7 @@
                 }
             }
             else{
+                [videoTracks setObject:uuid forKey:@"id"];
                 [videoTracks setObject:@"rearcamera" forKey:@"kind"];
                 [videoTracks setObject:device.description forKey:@"description"];
                 if([facingMode isEqualToString: @"environment"] || [facingMode isEqualToString: @""]){
@@ -158,6 +165,8 @@
         
         for (AVCaptureDevice *device in audioDevices) {
             NSMutableDictionary *audioTracks = [NSMutableDictionary dictionaryWithCapacity:5];
+            NSString *uuid = [[NSUUID UUID] UUIDString];
+            [audioTracks setObject:uuid forKey:@"id"];
             [audioTracks setObject:device.deviceType forKey:@"kind"];
             [audioTracks setObject:device.description forKey:@"description"];
             [arrayAudio addObject:audioTracks];
