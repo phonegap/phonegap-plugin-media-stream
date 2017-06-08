@@ -27,11 +27,14 @@
     </platform>
 
     <platform name="ios">
+        <js-module src="www/mediadevices.js" name="mediadevices">
+             <clobbers target="navigator.mediaDevices" />
+        </js-module>
         <js-module src="www/mediastream.js" name="mediastream">
-            <clobbers target="navigator.mediaDevices" />
+            <clobbers target="MediaStream" />
         </js-module>
         <config-file target="config.xml" parent="/*">
-            <feature name="MediaStream">
+            <feature name="Stream">
                 <param name="ios-package" value="CDVMediaStream" />
             </feature>
         </config-file>

@@ -152,7 +152,7 @@
             }
             
         }
-        [userMedia setObject:arrayVideo forKey:@"getVideoTracks"];
+        [userMedia setObject:arrayVideo forKey:@"videoTracks"];
     }
     if(audio == YES){
         
@@ -162,18 +162,10 @@
             [audioTracks setObject:device.description forKey:@"description"];
             [arrayAudio addObject:audioTracks];
         }
-        [userMedia setObject:arrayAudio forKey:@"getAudioTracks"];
+        [userMedia setObject:arrayAudio forKey:@"audioTracks"];
     }
     
-    // create data for getTracks() method
-    
-    NSMutableArray *tracks = [[NSMutableArray alloc] initWithCapacity:10];
-    [tracks addObjectsFromArray:arrayVideo];
-    [tracks addObjectsFromArray:arrayAudio];
-    [userMedia setObject:tracks forKey:@"getTracks"];
-    
     CDVPluginResult* result = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK messageAsDictionary:userMedia];
-    [result setKeepCallbackAsBool:YES];
     [self.commandDelegate sendPluginResult:result callbackId:command.callbackId];
     
     

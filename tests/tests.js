@@ -111,6 +111,22 @@ exports.defineAutoTests = function () {
                     expect(media).toBeDefined();
                     expect(typeof media).toBe('object');
                     // media.getworks with android studio 
+
+
+                    expect(media.getVideoTracks()).toBeDefined();
+                    expect(media.getAudioTracks()).toBeDefined();
+                    expect(media.getTracks()).toBeDefined();
+                    expect(media.id).toBeDefined();
+                    expect(media.getTrackbyId()).toBeDefined();
+                    expect(media.addTrack()).toBeDefined();
+                    expect(media.removeTrack()).toBeDefined();
+                    expect(media.active).toBeDefined();
+                    expect(media.onaddtrack).toBeDefined();
+                    expect(media.onremovetrack).toBeDefined();
+                    expect(media.clone()).toBeDefined();
+                    expect(media.active).toBe('boolean');
+                    expect(media.id).toBe('string');
+
                     var videoTracks = media.getVideoTracks();
                     expect(videoTracks[0].label).toBeDefined();
                     expect(videoTracks[0].kind).toBeDefined();
@@ -150,6 +166,7 @@ exports.defineAutoTests = function () {
                     expect(tracks[0].readyState).toBeDefined();
                     expect(tracks[0].onended).toBeDefined();
                    // expect(tracks[0].stop).toBeDefined();
+
 
 
 
