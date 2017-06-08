@@ -28,9 +28,10 @@ var exec = cordova.require('cordova/exec'),
  * @constructor
  */
 var MediaStream = function(tracks) {
-    this.id = '';
+	this.id = '';
     this.audioTracks = tracks.audioTracks;
     this.videoTracks = tracks.videoTracks;
+    this.tracks = this.audioTracks.concat(this.videoTracks);
     this.active = true;
 };
 
@@ -43,7 +44,26 @@ MediaStream.prototype.getVideoTracks = function() {
 
 };
 MediaStream.prototype.getTracks = function() {
-    return this.audioTracks.concat(this.videoTracks);
+    return this.tracks;
+};
+MediaStream.prototype.addTrack = function(trck) {
+    var flag = true;
+    var tracks = this.tracks;
+    for (var i = 0; i < tracks.length; i++) {
+        if (tracks[i].id == trck.id) {
+            flag = false;
+        }
+    }
+    if (flag == true) {
+        this.tracks = this.tracks.concat(trck);
+    }
+};
+MediaStream.prototype.removeTrack = function(trck) {
+    for (var i = 0; i < this.tracks.length; i++) {
+        if (this.tracks[i].id == trck.id) {
+            this.tracks.splice(i, 1);
+        }
+    }
 };
 
 module.exports = MediaStream;
