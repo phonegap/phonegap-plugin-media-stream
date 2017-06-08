@@ -28,26 +28,22 @@ var exec = cordova.require('cordova/exec'),
  * @constructor
  */
 var MediaStream = function(tracks) {
-
     this.id = '';
-    this.tracks = tracks;
-    //this.clone = function(){};
+    this.audioTracks = tracks.audioTracks;
+    this.videoTracks = tracks.videoTracks;
     this.active = true;
 };
 
 MediaStream.prototype.getAudioTracks = function() {
-    return this.tracks.audioTracks;
+    return this.audioTracks;
 
 };
 MediaStream.prototype.getVideoTracks = function() {
-    return this.tracks.videoTracks;
+    return this.videoTracks;
 
 };
 MediaStream.prototype.getTracks = function() {
-    var vidTrack = this.tracks.videoTracks;
-    var audTrack = this.tracks.audioTracks;
-    var alltracks = vidTrack.concat(audTrack);
-    return alltracks;
+    return this.audioTracks.concat(this.videoTracks);
 };
 
 module.exports = MediaStream;
