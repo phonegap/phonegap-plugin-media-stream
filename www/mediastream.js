@@ -18,20 +18,22 @@
  * under the License.
  *
  */
-/* globals Promise */
+/* globals Promise cordova */
+
+var exec = cordova.require('cordova/exec'),
+    utils = cordova.require('cordova/utils');
+
 /**
  * This class contains information about the getUserMedia API.
  * @constructor
  */
-var exec = cordova.require('cordova/exec'),
-    utils = cordova.require('cordova/utils'),
-    MediaStream = function(tracks) {
+var MediaStream = function(tracks) {
 
-        this.id = "";
-        this.tracks = tracks;
-        //this.clone = function(){};
-        this.active = true;
-    };
+    this.id = '';
+    this.tracks = tracks;
+    //this.clone = function(){};
+    this.active = true;
+};
 
 MediaStream.prototype.getAudioTracks = function() {
     return this.tracks.audioTracks;
@@ -49,4 +51,3 @@ MediaStream.prototype.getTracks = function() {
 };
 
 module.exports = MediaStream;
-
