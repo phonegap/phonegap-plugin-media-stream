@@ -23,13 +23,12 @@
 @interface CDVMediaStream : CDVPlugin {
     
 }
-
+    
 @property (nonatomic, assign) BOOL video;
-@property (nonatomic) AVCaptureDeviceDiscoverySession *videoDeviceDiscoverySession;
-@property (nonatomic) AVCaptureSession *session;
-
+    
 - (void)enumerateDevices:(CDVInvokedUrlCommand*)command;
 - (void)getSupportedConstraints:(CDVInvokedUrlCommand*)command;
 - (void)getUserMedia:(CDVInvokedUrlCommand*)command;
-
-@end
+- (void)createID:(CDVInvokedUrlCommand*)command;
+    
+    @end
