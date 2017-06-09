@@ -18,7 +18,7 @@
  * under the License.
  *
 */
-/* globals Promise */
+/* globals Promise, cordova, MediaStream */
 var exec = cordova.require('cordova/exec'),
     utils = cordova.require('cordova/utils'),
     flagConstraints = true,
