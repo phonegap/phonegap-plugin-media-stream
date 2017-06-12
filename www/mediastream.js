@@ -19,9 +19,9 @@
      *
      */
     /* globals Promise cordova */
-    var exec = cordova.require('cordova/exec'),
-        utils = cordova.require('cordova/utils'),
-        newID = '';
+var exec = cordova.require('cordova/exec'),
+    utils = cordova.require('cordova/utils'),
+    newID = '';
     /**
      * This class contains information about the getUserMedia API.
      * @constructor
@@ -109,6 +109,4 @@
         };
         exec(success, null, 'Stream', 'createID', []);
     }
-
-
     module.exports = MediaStream;
