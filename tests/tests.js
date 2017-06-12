@@ -20,11 +20,11 @@
  */
 /* jshint jasmine: true */
 /* global navigator, done */
-exports.defineAutoTests = function () {
+exports.defineAutoTests = function() {
 
     describe('Plugin conforms to w3c specs', function() {
 
-        it("navigator.mediaDevices should exist", function(){
+        it("navigator.mediaDevices should exist", function() {
             expect(navigator.mediaDevices).toBeDefined();
             expect(typeof navigator.mediaDevices).toBe('object');
             expect(navigator.mediaDevices.enumerateDevices).toBeDefined();
@@ -38,11 +38,11 @@ exports.defineAutoTests = function () {
 
         });
 
-        it('enumerateDevices should return a promise with attributes', function(done){
-            try{
+        it('enumerateDevices should return a promise with attributes', function(done) {
+            try {
                 var promise = navigator.mediaDevices.enumerateDevices();
                 expect(typeof promise.then).toBe('function');
-                promise.then(function (info){
+                promise.then(function(info) {
                     expect(info).toBeDefined();
                     expect(typeof info).toBe('object');
                     info.forEach(function(device) {
@@ -68,51 +68,49 @@ exports.defineAutoTests = function () {
 
         });
 
-        it('getSupportedConstraints should return a promise with attributes', function(){
-            
-                var support = navigator.mediaDevices.getSupportedConstraints();
-                expect(support.width).toBeDefined();
-                expect(support.height).toBeDefined();
-                expect(support.aspectRatio).toBeDefined();
-                expect(support.frameRate).toBeDefined();
-                expect(support.facingMode).toBeDefined();
-                expect(support.volume).toBeDefined();
-                expect(support.sampleRate).toBeDefined();
-                expect(support.sampleSize).toBeDefined();
-                expect(support.echoCancellation).toBeDefined();
-                expect(support.latency).toBeDefined();
-                expect(support.channelCount).toBeDefined();
-                expect(support.deviceId).toBeDefined();
-                expect(support.groupId).toBeDefined();
-                expect(typeof support.width).toBe('boolean');
-                expect(typeof support.height).toBe('boolean');
-                expect(typeof support.aspectRatio).toBe('boolean');
-                expect(typeof support.frameRate).toBe('boolean');
-                expect(typeof support.facingMode).toBe('boolean');
-                expect(typeof support.volume).toBe('boolean');
-                expect(typeof support.sampleRate).toBe('boolean');
-                expect(typeof support.sampleSize).toBe('boolean');
-                expect(typeof support.echoCancellation).toBe('boolean');
-                expect(typeof support.latency).toBe('boolean');
-                expect(typeof support.channelCount).toBe('boolean');
-                expect(typeof support.deviceId).toBe('boolean');
-                expect(typeof support.groupId).toBe('boolean');
+        it('getSupportedConstraints should return a promise with attributes', function() {
+
+            var support = navigator.mediaDevices.getSupportedConstraints();
+            expect(support.width).toBeDefined();
+            expect(support.height).toBeDefined();
+            expect(support.aspectRatio).toBeDefined();
+            expect(support.frameRate).toBeDefined();
+            expect(support.facingMode).toBeDefined();
+            expect(support.volume).toBeDefined();
+            expect(support.sampleRate).toBeDefined();
+            expect(support.sampleSize).toBeDefined();
+            expect(support.echoCancellation).toBeDefined();
+            expect(support.latency).toBeDefined();
+            expect(support.channelCount).toBeDefined();
+            expect(support.deviceId).toBeDefined();
+            expect(support.groupId).toBeDefined();
+            expect(typeof support.width).toBe('boolean');
+            expect(typeof support.height).toBe('boolean');
+            expect(typeof support.aspectRatio).toBe('boolean');
+            expect(typeof support.frameRate).toBe('boolean');
+            expect(typeof support.facingMode).toBe('boolean');
+            expect(typeof support.volume).toBe('boolean');
+            expect(typeof support.sampleRate).toBe('boolean');
+            expect(typeof support.sampleSize).toBe('boolean');
+            expect(typeof support.echoCancellation).toBe('boolean');
+            expect(typeof support.latency).toBe('boolean');
+            expect(typeof support.channelCount).toBe('boolean');
+            expect(typeof support.deviceId).toBe('boolean');
+            expect(typeof support.groupId).toBe('boolean');
 
         });
 
-        it('getUserMedia should return a promise with attributes', function(done){
-            try{
-                var constraints =  {
-                        video: true
-                    };
+        it('getUserMedia should return a promise with attributes', function(done) {
+            try {
+                var constraints = {
+                    video: true
+                };
                 var promise = navigator.mediaDevices.getUserMedia(constraints);
                 expect(typeof promise.then).toBe('function');
-                promise.then(function (media){
+                promise.then(function(media) {
                     expect(media).toBeDefined();
                     expect(typeof media).toBe('object');
-                    // media.getworks with android studio 
-
-
+                    // media.getworks with android studio
                     expect(media.getVideoTracks()).toBeDefined();
                     expect(media.getAudioTracks()).toBeDefined();
                     expect(media.getTracks()).toBeDefined();
@@ -120,11 +118,9 @@ exports.defineAutoTests = function () {
                     expect(media.getTrackbyId()).toBeDefined();
                     expect(media.addTrack()).toBeDefined();
                     expect(media.removeTrack()).toBeDefined();
-                    expect(media.active).toBeDefined();
                     expect(media.onaddtrack).toBeDefined();
                     expect(media.onremovetrack).toBeDefined();
                     expect(media.clone()).toBeDefined();
-                    expect(media.active).toBe('boolean');
                     expect(media.id).toBe('string');
 
                     var videoTracks = media.getVideoTracks();
@@ -137,7 +133,7 @@ exports.defineAutoTests = function () {
                     expect(videoTracks[0].onunmute).toBeDefined();
                     expect(videoTracks[0].readyState).toBeDefined();
                     expect(videoTracks[0].onended).toBeDefined();
-                   // expect(videoTracks[0].stop).toBeDefined();
+                    // expect(videoTracks[0].stop).toBeDefined();
                     // expect(videoTracks[0].getCapabilities).toBeDefined();
                     // expect(videoTracks[0].getConstraints).toBeDefined();
                     // expect(videoTracks[0].getSettings).toBeDefined();
@@ -153,7 +149,7 @@ exports.defineAutoTests = function () {
                     expect(audioTracks[0].onunmute).toBeDefined();
                     expect(audioTracks[0].readyState).toBeDefined();
                     expect(audioTracks[0].onended).toBeDefined();
-                   // expect(audioTracks[0].stop).toBeDefined();
+                    // expect(audioTracks[0].stop).toBeDefined();
 
                     var tracks = media.getTracks();
                     expect(tracks[0].label).toBeDefined();
@@ -165,7 +161,7 @@ exports.defineAutoTests = function () {
                     expect(tracks[0].onunmute).toBeDefined();
                     expect(tracks[0].readyState).toBeDefined();
                     expect(tracks[0].onended).toBeDefined();
-                   // expect(tracks[0].stop).toBeDefined();
+                    // expect(tracks[0].stop).toBeDefined();
 
 
 
