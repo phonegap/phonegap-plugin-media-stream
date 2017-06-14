@@ -49,9 +49,7 @@ MediaStream.prototype.getTracks = function() {
 };
 
 MediaStream.prototype.addTrack = function(trck) {
-    var flag = true;
     var tracks;
-
     if (trck.kind === 'video') {
         tracks = this.videoTracks;
     } else {
@@ -64,15 +62,14 @@ MediaStream.prototype.addTrack = function(trck) {
         }
     }
 
-    if (flag === true) {
-        if (trck.kind === 'video') {
+    if (trck.kind === 'video') {
             this.videoTracks = this.videoTracks.concat(trck);
             this.onaddTrack();
-        } else if (trck.kind === 'audio') {
+    } else if (trck.kind === 'audio') {
             this.audioTracks = this.audioTracks.concat(trck);
             this.onaddTrack();
-        }
     }
+
 };
 
 MediaStream.prototype.removeTrack = function(trck) {
@@ -83,6 +80,7 @@ MediaStream.prototype.removeTrack = function(trck) {
             if (tracks[i].id === trck.id) {
                 this.videoTracks.splice(i, 1);
                 this.onremoveTrack();
+                return;
             }
         }
 
@@ -92,6 +90,7 @@ MediaStream.prototype.removeTrack = function(trck) {
             if (tracks[j].id === trck.id) {
                 this.audioTracks.splice(j, 1);
                 this.onremoveTrack();
+                return;
             }
         }
 
@@ -120,6 +119,16 @@ MediaStream.prototype.clone = function() {
 
     var stream = new MediaStream(this.tracks);
     stream.id = guid();
+    var tracks = this.videoTracks;
+    for (var i = 0; i < tracks.length; i++) {
+            tracks[i].id = guid();
+    }
+    stream.videoTracks = tracks;
+    tracks = this.audioTracks;
+    for (var i = 0; i < tracks.length; i++) {
+            tracks[i].id = guid();
+    }
+    stream.audioTracks = tracks;
     return stream;
 };
 
