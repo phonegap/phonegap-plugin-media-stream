@@ -30,7 +30,6 @@ var MediaStream = function(tracks) {
     this.id = tracks.id;
     this.audioTracks = tracks.audioTracks;
     this.videoTracks = tracks.videoTracks;
-    this.tracks = tracks;
     this.onaddTrack = function() {};
     this.onremoveTrack = function() {};
     //this.active = true;
@@ -107,29 +106,37 @@ MediaStream.prototype.getTrackbyId = function(id) {
 };
 
 MediaStream.prototype.clone = function() {
-    var guid = function() {
-        var s4 = function() {
-            return Math.floor((1 + Math.random()) * 0x10000)
-                .toString(16)
-                .substring(1);
-        };
-        return s4() + s4() + '-' + s4() + '-' + s4() + '-' +
-                s4() + '-' + s4() + s4() + s4();
+  var guid = function() {
+    var s4 = function() {
+      return Math.floor((1 + Math.random()) * 0x10000)
+         .toString(16)
+         .substring(1);
     };
+    return s4() + s4() + '-' + s4() + '-' + s4() + '-' +
+       s4() + '-' + s4() + s4() + s4();
+  };
 
-    var stream = new MediaStream(this.tracks);
-    stream.id = guid();
-    var tracks = this.videoTracks;
-    for (var i = 0; i < tracks.length; i++) {
-            tracks[i].id = guid();
+  var video;
+  if (this.videoTracks) {
+    video = JSON.parse(JSON.stringify(this.videoTracks));
+    for (var i = 0; i < video.length; i++) {
+      video[i].id = guid();
     }
-    stream.videoTracks = tracks;
-    tracks = this.audioTracks;
-    for (var i = 0; i < tracks.length; i++) {
-            tracks[i].id = guid();
+  }
+
+  var audio;
+  if (this.audioTracks) {
+    audio = JSON.parse(JSON.stringify(this.audioTracks));
+    for (var j = 0; j < audio.length; j++) {
+      audio[j].id = guid();
     }
-    stream.audioTracks = tracks;
-    return stream;
+  }
+
+  return new MediaStream({
+    id: guid(),
+    audioTracks: audio,
+    videoTracks: video
+  });
 };
 
 module.exports = MediaStream;
