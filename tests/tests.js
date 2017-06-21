@@ -122,6 +122,19 @@ exports.defineAutoTests = function() {
                     expect(media.onremovetrack).toBeDefined();
                     expect(media.clone()).toBeDefined();
                     expect(media.id).toBe('string');
+                    var tracks = media.clone();
+                    expect(tracks.id).toBeDefined();
+                    expect(tracks.audioTracks).toBeDefined();
+                    expect(tracks.videoTracks).toBeDefined();
+                    expect(tracks.getTrackbyId()).toBeDefined();
+                    expect(tracks.addTrack()).toBeDefined();
+                    expect(tracks.removeTrack()).toBeDefined();
+                    expect(tracks.onaddtrack).toBeDefined();
+                    expect(tracks.onremovetrack).toBeDefined();
+                    expect(tracks.clone()).toBeDefined();
+                    expect(tracks.getVideoTracks()).toBeDefined();
+                    expect(tracks.getAudioTracks()).toBeDefined();
+                    expect(tracks.getTracks()).toBeDefined();
 
                     var videoTracks = media.getVideoTracks();
                     expect(videoTracks[0].label).toBeDefined();
