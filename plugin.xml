@@ -1,47 +1,38 @@
-<?xml version="1.0" encoding="UTF-8"?>
-
-<plugin xmlns="http://cordova.apache.org/ns/plugins/1.0"
-           id="phonegap-plugin-media-stream"
-      version="0.0.1">
-    <name>MediaStream</name>
-
-    <dependency id="es6-promise-plugin"/>
-    <dependency id="cordova-plugin-compat" version="^1.1.0" />
-
-    <platform name="android">
-        <js-module src="www/android/MediaDevices.js" name="MediaDevices">
-            <clobbers target="navigator.mediaDevices" />
-        </js-module>
-
-        <config-file target="res/xml/config.xml" parent="/*">
-            <feature name="MediaStreams" >
-                <param name="android-package" value="com.adobe.phonegap.media.MediaStreamsPlugin"/>
-            </feature>
-        </config-file>
-
-        <config-file target="AndroidManifest.xml" parent="/manifest">
-            <uses-permission android:name="android.permission.INTERNET"/>
-            <uses-permission android:name="android.permission.RECORD_AUDIO"/>
-            <uses-permission android:name="android.permission.CAMERA"/>
-            <uses-permission android:name="android.permission.MODIFY_AUDIO_SETTINGS"/>
-        </config-file>
-
-        <source-file src="src/android/MediaStreamsPlugin.java" target-dir="src/com/adobe/phonegap/media" />
-    </platform>
-
-    <platform name="ios">
-        <js-module src="www/MediaDevices.js" name="MediaDevices">
-             <clobbers target="navigator.mediaDevices" />
-        </js-module>
-        <js-module src="www/MediaStream.js" name="MediaStream">
-            <clobbers target="MediaStream" />
-        </js-module>
-        <config-file target="config.xml" parent="/*">
-            <feature name="Stream">
-                <param name="ios-package" value="CDVMediaStream" />
-            </feature>
-        </config-file>
-        <header-file src="src/ios/CDVMediaStream.h" />
-        <source-file src="src/ios/CDVMediaStream.m" />
-    </platform>
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<plugin xmlns="http://cordova.apache.org/ns/plugins/1.0" id="phonegap-plugin-media-stream" version="0.0.2">
+  <name>MediaStream</name>
+  <dependency id="es6-promise-plugin"/>
+  <dependency id="cordova-plugin-compat" version="^1.1.0"/>
+  <platform name="android">
+    <js-module src="www/android/MediaDevices.js" name="MediaDevices">
+      <clobbers target="navigator.mediaDevices"/>
+    </js-module>
+    <config-file target="res/xml/config.xml" parent="/*">
+      <feature name="MediaStreams">
+        <param name="android-package" value="com.adobe.phonegap.media.MediaStreamsPlugin"/>
+      </feature>
+    </config-file>
+    <config-file target="AndroidManifest.xml" parent="/manifest">
+      <uses-permission android:name="android.permission.INTERNET"/>
+      <uses-permission android:name="android.permission.RECORD_AUDIO"/>
+      <uses-permission android:name="android.permission.CAMERA"/>
+      <uses-permission android:name="android.permission.MODIFY_AUDIO_SETTINGS"/>
+    </config-file>
+    <source-file src="src/android/MediaStreamsPlugin.java" target-dir="src/com/adobe/phonegap/media"/>
+  </platform>
+  <platform name="ios">
+    <js-module src="www/MediaDevices.js" name="MediaDevices">
+      <clobbers target="navigator.mediaDevices"/>
+    </js-module>
+    <js-module src="www/MediaStream.js" name="MediaStream">
+      <clobbers target="MediaStream"/>
+    </js-module>
+    <config-file target="config.xml" parent="/*">
+      <feature name="Stream">
+        <param name="ios-package" value="CDVMediaStream"/>
+      </feature>
+    </config-file>
+    <header-file src="src/ios/CDVMediaStream.h"/>
+    <source-file src="src/ios/CDVMediaStream.m"/>
+  </platform>
 </plugin>
