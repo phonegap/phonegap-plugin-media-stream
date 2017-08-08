@@ -21,34 +21,33 @@
 */
 /* globals window, navigator, cordova, Promise */
 
-var exec = cordova.require('cordova/exec'),
-    utils = cordova.require('cordova/utils');
+var exec = cordova.require('cordova/exec');
 
 var mediaDevices = {
     nativeMediaDevices: navigator.mediaDevices
 };
 
-mediaDevices.getSupportedConstraints = function() {
+mediaDevices.getSupportedConstraints = function () {
     return this.nativeMediaDevices.getSupportedConstraints();
 };
 
-mediaDevices.enumerateDevices = function() {
+mediaDevices.enumerateDevices = function () {
     return this.nativeMediaDevices.enumerateDevices();
 };
 
-mediaDevices.getUserMedia = function(constraints) {
+mediaDevices.getUserMedia = function (constraints) {
     var mediaDevice = this.nativeMediaDevices;
 
-    return new Promise(function(resolve, reject) {
-        var success = function() {
+    return new Promise(function (resolve, reject) {
+        var success = function () {
             mediaDevice.getUserMedia(constraints)
-                .then(function(stream) {
+                .then(function (stream) {
                     resolve(stream);
-                }).catch(function(error) {
+                }).catch(function (error) {
                     reject(error);
                 });
         };
-        var fail = function(error) {
+        var fail = function (error) {
             reject(error);
         };
         exec(success, fail, 'MediaStreams', 'getUserMedia', [constraints]);

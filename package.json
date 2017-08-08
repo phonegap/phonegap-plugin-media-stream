@@ -28,10 +28,22 @@
   "author": "Adobe PhoneGap Team",
   "license": "Apache-2.0",
   "scripts": {
-    "test": "jasmine-node --color spec"
+    "test": "npm run eslint && jasmine-node --color spec",
+    "eslint": "node node_modules/eslint/bin/eslint www && node node_modules/eslint/bin/eslint src && node node_modules/eslint/bin/eslint tests"
   },
   "devDependencies": {
-    "jasmine-node": "1.14.5",
-    "pluginpub": "^0.0.6"
+    "eslint-config-semistandard": "^11.0.0",
+    "eslint-config-standard": "^10.2.1",
+    "eslint-plugin-import": "^2.7.0",
+    "eslint-plugin-node": "^5.1.1",
+    "eslint-plugin-promise": "^3.5.0",
+    "eslint-plugin-standard": "^3.0.1",
+    "husky": "^0.10.1",
+    "eslint": "^4.0.0",
+    "jasmine-node": "^1.14.5",
+    "pluginpub": "^0.0.8"
+  },
+  "dependencies": {
+    "eslint": "^4.4.1"
   }
 }

@@ -18,36 +18,34 @@
  * under the License.
  *
  */
-/* globals Promise, cordova */
-var exec = cordova.require('cordova/exec'),
-    utils = cordova.require('cordova/utils');
+/* globals Promise */
 
 /**
  * This class contains information about the getUserMedia API.
  * @constructor
  */
-var MediaStream = function(tracks) {
+var MediaStream = function (tracks) {
     this.id = tracks.id;
     this.audioTracks = tracks.audioTracks;
     this.videoTracks = tracks.videoTracks;
-    this.onaddTrack = function() {};
-    this.onremoveTrack = function() {};
-    //this.active = true;
+    this.onaddTrack = function () {};
+    this.onremoveTrack = function () {};
+    // this.active = true;
 };
 
-MediaStream.prototype.getAudioTracks = function() {
+MediaStream.prototype.getAudioTracks = function () {
     return this.audioTracks;
 };
 
-MediaStream.prototype.getVideoTracks = function() {
+MediaStream.prototype.getVideoTracks = function () {
     return this.videoTracks;
 };
 
-MediaStream.prototype.getTracks = function() {
+MediaStream.prototype.getTracks = function () {
     return this.videoTracks.concat(this.audioTracks);
 };
 
-MediaStream.prototype.addTrack = function(trck) {
+MediaStream.prototype.addTrack = function (trck) {
     var tracks;
     if (trck.kind === 'video') {
         tracks = this.videoTracks;
@@ -62,16 +60,16 @@ MediaStream.prototype.addTrack = function(trck) {
     }
 
     if (trck.kind === 'video') {
-            this.videoTracks = this.videoTracks.concat(trck);
-            this.onaddTrack();
+        this.videoTracks = this.videoTracks.concat(trck);
+        this.onaddTrack();
     } else if (trck.kind === 'audio') {
-            this.audioTracks = this.audioTracks.concat(trck);
-            this.onaddTrack();
+        this.audioTracks = this.audioTracks.concat(trck);
+        this.onaddTrack();
     }
 
 };
 
-MediaStream.prototype.removeTrack = function(trck) {
+MediaStream.prototype.removeTrack = function (trck) {
     var tracks;
     if (trck.kind === 'video') {
         tracks = this.videoTracks;
@@ -96,7 +94,7 @@ MediaStream.prototype.removeTrack = function(trck) {
     }
 };
 
-MediaStream.prototype.getTrackbyId = function(id) {
+MediaStream.prototype.getTrackbyId = function (id) {
     var tracks = this.videoTracks.concat(this.audioTracks);
     for (var i = 0; i < tracks.length; i++) {
         if (tracks[i].id === id) {
@@ -105,38 +103,38 @@ MediaStream.prototype.getTrackbyId = function(id) {
     }
 };
 
-MediaStream.prototype.clone = function() {
-  var guid = function() {
-    var s4 = function() {
-      return Math.floor((1 + Math.random()) * 0x10000)
-         .toString(16)
-         .substring(1);
+MediaStream.prototype.clone = function () {
+    var guid = function () {
+        var s4 = function () {
+            return Math.floor((1 + Math.random()) * 0x10000)
+                .toString(16)
+                .substring(1);
+        };
+        return s4() + s4() + '-' + s4() + '-' + s4() + '-' +
+           s4() + '-' + s4() + s4() + s4();
     };
-    return s4() + s4() + '-' + s4() + '-' + s4() + '-' +
-       s4() + '-' + s4() + s4() + s4();
-  };
 
-  var video;
-  if (this.videoTracks) {
-    video = JSON.parse(JSON.stringify(this.videoTracks));
-    for (var i = 0; i < video.length; i++) {
-      video[i].id = guid();
+    var video;
+    if (this.videoTracks) {
+        video = JSON.parse(JSON.stringify(this.videoTracks));
+        for (var i = 0; i < video.length; i++) {
+            video[i].id = guid();
+        }
     }
-  }
 
-  var audio;
-  if (this.audioTracks) {
-    audio = JSON.parse(JSON.stringify(this.audioTracks));
-    for (var j = 0; j < audio.length; j++) {
-      audio[j].id = guid();
+    var audio;
+    if (this.audioTracks) {
+        audio = JSON.parse(JSON.stringify(this.audioTracks));
+        for (var j = 0; j < audio.length; j++) {
+            audio[j].id = guid();
+        }
     }
-  }
 
-  return new MediaStream({
-    id: guid(),
-    audioTracks: audio,
-    videoTracks: video
-  });
+    return new MediaStream({
+        id: guid(),
+        audioTracks: audio,
+        videoTracks: video
+    });
 };
 
 module.exports = MediaStream;

@@ -19,10 +19,9 @@
  *
 */
 /* globals Promise, cordova, MediaStream */
-var exec = cordova.require('cordova/exec'),
-    utils = cordova.require('cordova/utils'),
-    flagConstraints = true,
-    flagDevices = true;
+var exec = cordova.require('cordova/exec');
+var flagConstraints = true;
+var flagDevices = true;
 
 var mediaDevices = {
     _devices: null
@@ -44,8 +43,8 @@ var supportedConstraints = {
     'groupId': true
 };
 
-mediaDevices.getSupportedConstraints = function() {
-    var success = function(constraints) {
+mediaDevices.getSupportedConstraints = function () {
+    var success = function (constraints) {
         console.log('constraints: ' + JSON.stringify(constraints));
         supportedConstraints = constraints;
     };
@@ -59,10 +58,10 @@ mediaDevices.getSupportedConstraints = function() {
     return supportedConstraints;
 };
 
-mediaDevices.enumerateDevices = function() {
+mediaDevices.enumerateDevices = function () {
     var that = this;
-    return new Promise(function(resolve, reject) {
-        var success = function(device) {
+    return new Promise(function (resolve, reject) {
+        var success = function (device) {
             flagDevices = false;
             console.log('success ' + device.devices);
             that._devices = device.devices;
@@ -77,10 +76,9 @@ mediaDevices.enumerateDevices = function() {
     });
 };
 
-
-mediaDevices.getUserMedia = function(constraints) {
-    return new Promise(function(resolve, reject) {
-        var success = function(getMediaTracks) {
+mediaDevices.getUserMedia = function (constraints) {
+    return new Promise(function (resolve, reject) {
+        var success = function (getMediaTracks) {
             console.log('mediatrack' + getMediaTracks);
             var stream = new MediaStream(getMediaTracks);
             resolve(stream);
@@ -89,6 +87,5 @@ mediaDevices.getUserMedia = function(constraints) {
 
     });
 };
-
 
 module.exports = mediaDevices;

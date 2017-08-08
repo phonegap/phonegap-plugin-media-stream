@@ -19,18 +19,18 @@
  *
  */
 /* jshint jasmine: true */
-/* global navigator, done */
-exports.defineAutoTests = function() {
+/* global navigator, describe, it, expect, fail */
+exports.defineAutoTests = function () {
 
-    describe('Plugin conforms to w3c specs', function() {
+    describe('Plugin conforms to w3c specs', function () {
 
-        it("navigator.mediaDevices should exist", function() {
+        it('navigator.mediaDevices should exist', function () {
             expect(navigator.mediaDevices).toBeDefined();
             expect(typeof navigator.mediaDevices).toBe('object');
             expect(navigator.mediaDevices.enumerateDevices).toBeDefined();
             expect(typeof navigator.mediaDevices.enumerateDevices).toBe('function');
             // does not return ondevicechnge as defined
-            //expect(navigator.mediaDevices.ondevicechange).toBeDefined();
+            // expect(navigator.mediaDevices.ondevicechange).toBeDefined();
             expect(navigator.mediaDevices.getSupportedConstraints).toBeDefined();
             expect(typeof navigator.mediaDevices.getSupportedConstraints).toBe('function');
             expect(navigator.mediaDevices.getUserMedia).toBeDefined();
@@ -38,14 +38,14 @@ exports.defineAutoTests = function() {
 
         });
 
-        it('enumerateDevices should return a promise with attributes', function(done) {
+        it('enumerateDevices should return a promise with attributes', function (done) {
             try {
                 var promise = navigator.mediaDevices.enumerateDevices();
                 expect(typeof promise.then).toBe('function');
-                promise.then(function(info) {
+                promise.then(function (info) {
                     expect(info).toBeDefined();
                     expect(typeof info).toBe('object');
-                    info.forEach(function(device) {
+                    info.forEach(function (device) {
                         expect(device.deviceId).toBeDefined();
                         expect(device.kind).toBeDefined();
                         expect(device.label).toBeDefined();
@@ -56,7 +56,7 @@ exports.defineAutoTests = function() {
                         expect(typeof device.groupId).toBe('string');
                     });
                     done();
-                }, function(err) {
+                }, function (err) {
                     expect(err).toBeDefined();
                     fail(err);
                     done();
@@ -68,7 +68,7 @@ exports.defineAutoTests = function() {
 
         });
 
-        it('getSupportedConstraints should return a promise with attributes', function() {
+        it('getSupportedConstraints should return a promise with attributes', function () {
 
             var support = navigator.mediaDevices.getSupportedConstraints();
             expect(support.width).toBeDefined();
@@ -100,14 +100,14 @@ exports.defineAutoTests = function() {
 
         });
 
-        it('getUserMedia should return a promise with attributes', function(done) {
+        it('getUserMedia should return a promise with attributes', function (done) {
             try {
                 var constraints = {
                     video: true
                 };
                 var promise = navigator.mediaDevices.getUserMedia(constraints);
                 expect(typeof promise.then).toBe('function');
-                promise.then(function(media) {
+                promise.then(function (media) {
                     expect(media).toBeDefined();
                     expect(typeof media).toBe('object');
                     // media.getworks with android studio
@@ -150,7 +150,7 @@ exports.defineAutoTests = function() {
                     // expect(videoTracks[0].getCapabilities).toBeDefined();
                     // expect(videoTracks[0].getConstraints).toBeDefined();
                     // expect(videoTracks[0].getSettings).toBeDefined();
-                    //expect(videoTracks[0].applyConstraints).toBeDefined();
+                    // expect(videoTracks[0].applyConstraints).toBeDefined();
 
                     var audioTracks = media.getAudioTracks();
                     expect(audioTracks[0].label).toBeDefined();
@@ -164,23 +164,19 @@ exports.defineAutoTests = function() {
                     expect(audioTracks[0].onended).toBeDefined();
                     // expect(audioTracks[0].stop).toBeDefined();
 
-                    var tracks = media.getTracks();
-                    expect(tracks[0].label).toBeDefined();
-                    expect(tracks[0].kind).toBeDefined();
-                    expect(tracks[0].id).toBeDefined();
-                    expect(tracks[0].enabled).toBeDefined();
-                    expect(tracks[0].muted).toBeDefined();
-                    expect(tracks[0].onmute).toBeDefined();
-                    expect(tracks[0].onunmute).toBeDefined();
-                    expect(tracks[0].readyState).toBeDefined();
-                    expect(tracks[0].onended).toBeDefined();
+                    var tracks2 = media.getTracks();
+                    expect(tracks2[0].label).toBeDefined();
+                    expect(tracks2[0].kind).toBeDefined();
+                    expect(tracks2[0].id).toBeDefined();
+                    expect(tracks2[0].enabled).toBeDefined();
+                    expect(tracks2[0].muted).toBeDefined();
+                    expect(tracks2[0].onmute).toBeDefined();
+                    expect(tracks2[0].onunmute).toBeDefined();
+                    expect(tracks2[0].readyState).toBeDefined();
+                    expect(tracks2[0].onended).toBeDefined();
                     // expect(tracks[0].stop).toBeDefined();
-
-
-
-
                     done();
-                }, function(err) {
+                }, function (err) {
                     expect(err).toBeDefined();
                     fail(err);
                     done();
