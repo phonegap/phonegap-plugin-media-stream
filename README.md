@@ -1,3 +1,5 @@
+# phonegap-plugin-media-stream [![Build Status](https://travis-ci.org/phonegap/phonegap-plugin-media-stream.svg)](https://travis-ci.org/phonegap/phonegap-plugin-media-stream)
+
 
 Phonegap plugin Media Stream
 ------------------------
