@@ -14,8 +14,8 @@ This plugin provides an implementation of the [W3C Media Capture API](https://w3
 
 The mediaDevices object has the following methods:
 
-- [getUserMedia(optional MediaStreamConstraints constraints)]()
-- [getSupportedConstraints()]()
+- [getUserMedia(optional MediaStreamConstraints constraints)](https://github.com/phonegap/phonegap-plugin-media-stream#getusermediaoptional-mediastreamconstraints-constraints)
+- [getSupportedConstraints()](https://github.com/phonegap/phonegap-plugin-media-stream#getsupportedconstraints)
 
 ### getUserMedia(optional MediaStreamConstraints constraints)
 
@@ -47,7 +47,7 @@ console.log(constraints);
 
 ## Quirks
 
-The iOS implementation that this plugin provides does not allow you to attach the returned `MediaStream` object to a `audio` or `video` tag. Rather you will use the `MeidaStream` object to get a `MediaStreamTrack` to pass to the Image (see [phonegap-plugin-image-capture](https://github.com/phonegap/phonegap-plugin-image-capture)) or Audio capture API. 
+The iOS implementation that this plugin provides does not allow you to attach the returned `MediaStream` object to a `audio` or `video` tag. Rather you will use the `MeidaStream` object to get a `MediaStreamTrack` to pass to the Image (see [phonegap-plugin-image-capture](https://github.com/phonegap/phonegap-plugin-image-capture)) or Audio capture API.
 
 ## [Contributing](CONTRIBUTING.md)
 
