@@ -1,5 +1,15 @@
 # Change Log
 
+## [v1.1.0](https://github.com/git@github.com:phonegap/phonegap-plugin-media-stream/tree/v1.1.0) (2017-08-16)
+[Full Changelog](https://github.com/git@github.com:phonegap/phonegap-plugin-media-stream/compare/v1.0.0...v1.1.0)
+
+- 1.1.0 [view commit](http://github.com/git@github.com:phonegap/phonegap-plugin-media-stream/commit/475adddfd301f3b9ee3a8ae4351f06b2578e512a)
+- :bookmark: Bumping plugin version to 1.1.0 [view commit](http://github.com/git@github.com:phonegap/phonegap-plugin-media-stream/commit/93f5f0c2c46621c5dfc863502ea3bc1aa4bbb802)
+- :hammer: Adding common code from image capture and media recorder [view commit](http://github.com/git@github.com:phonegap/phonegap-plugin-media-stream/commit/f1bd87562d53c3284347f1cc55c30b8b3ab1a4ce)
+- Merge pull request #4 from janpio/patch-1 [view commit](http://github.com/git@github.com:phonegap/phonegap-plugin-media-stream/commit/0911e397cfb888c478044d7ef7f64080a87ef050)
+- fix Contributing link [view commit](http://github.com/git@github.com:phonegap/phonegap-plugin-media-stream/commit/e2e18e7c741a1cb64ba33aa3883d8e2db78e077d)
+- Updating CHANGELOG [view commit](http://github.com/git@github.com:phonegap/phonegap-plugin-media-stream/commit/15d083da239aaa58cd795782f17492f70dcd50c1)
+
 ## [v1.0.0](https://github.com/git@github.com:phonegap/phonegap-plugin-media-stream/tree/v1.0.0) (2017-08-09)
 [Full Changelog](https://github.com/git@github.com:phonegap/phonegap-plugin-media-stream/compare/v0.0.2...v1.0.0)
 
