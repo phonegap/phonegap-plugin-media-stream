@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<plugin xmlns="http://cordova.apache.org/ns/plugins/1.0" id="phonegap-plugin-media-stream" version="1.0.0">
+<plugin xmlns="http://cordova.apache.org/ns/plugins/1.0" id="phonegap-plugin-media-stream" version="1.1.0">
   <name>MediaStream</name>
   <dependency id="es6-promise-plugin"/>
   <dependency id="cordova-plugin-compat" version="^1.1.0"/>
@@ -33,13 +33,13 @@
       </feature>
     </config-file>
     <header-file src="src/ios/CDVMediaStream.h"/>
-    <source-file src="src/ios/CDVMediaStream.m"/>
     <header-file src="src/ios/CameraViewController.h"/>
-    <source-file src="src/ios/CameraViewController.m"/>
-    <resource-file src="src/ios/CameraViewController.xib"/>
     <header-file src="src/ios/JPSCameraButton.h"/>
-    <source-file src="src/ios/JPSCameraButton.m"/>
     <header-file src="src/ios/UIImage+DrawBlock.h"/>
+    <source-file src="src/ios/CDVMediaStream.m"/>
+    <source-file src="src/ios/CameraViewController.m"/>
+    <source-file src="src/ios/JPSCameraButton.m"/>
     <source-file src="src/ios/UIImage+DrawBlock.m"/>
+    <resource-file src="src/ios/CameraViewController.xib"/>
   </platform>
 </plugin>
