@@ -1,5 +1,13 @@
 # Change Log
 
+## [v1.1.1](https://github.com/git@github.com:phonegap/phonegap-plugin-media-stream/tree/v1.1.1) (2017-08-16)
+[Full Changelog](https://github.com/git@github.com:phonegap/phonegap-plugin-media-stream/compare/v1.1.0...v1.1.1)
+
+- 1.1.1 [view commit](http://github.com/git@github.com:phonegap/phonegap-plugin-media-stream/commit/f632b33884502e9035fb16d6101c85236e3af43b)
+- :bookmark: Bumping plugin version to 1.1.1 [view commit](http://github.com/git@github.com:phonegap/phonegap-plugin-media-stream/commit/2c565eb9af52fccffd2b9d6247a786f7d5882ae3)
+- :poop: Fixing bad copy of files from XCode [view commit](http://github.com/git@github.com:phonegap/phonegap-plugin-media-stream/commit/9c61c538ce0f91794b649093d27ad02a1daf88f0)
+- Updating CHANGELOG [view commit](http://github.com/git@github.com:phonegap/phonegap-plugin-media-stream/commit/dd88654b9ec47daf4f45cc8e062964b614c861a4)
+
 ## [v1.1.0](https://github.com/git@github.com:phonegap/phonegap-plugin-media-stream/tree/v1.1.0) (2017-08-16)
 [Full Changelog](https://github.com/git@github.com:phonegap/phonegap-plugin-media-stream/compare/v1.0.0...v1.1.0)
 
