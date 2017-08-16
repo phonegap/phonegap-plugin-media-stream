@@ -1,7 +1,7 @@
 {
   "name": "phonegap-plugin-media-stream",
   "description": "",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "homepage": "https://github.com/phonegap/phonegap-plugin-media-stream#readme",
   "repository": {
     "type": "git",
