@@ -38,8 +38,8 @@
 
     // Initialize the capture queue
     self.captureQueue = [[NSOperationQueue alloc] init];
-    
-    [self.cancelButton setTitle:[_imageCaptureInterface pluginLocalizedString:@"Cancel"] forState:UIControlStateNormal];
+
+    [self.cancelButton setTitle:[_mediaStreamInterface pluginLocalizedString:@"Cancel"] forState:UIControlStateNormal];
 
     // Initialise the blur effect used when switching between cameras
     UIBlurEffect *effect = [UIBlurEffect effectWithStyle:UIBlurEffectStyleLight];
@@ -352,7 +352,7 @@
 - (void)handleImage:(UIImage *)image
 {
     NSLog(@"in handle image");
-    [self.imageCaptureInterface receiveImage:image];
+    [self.mediaStreamInterface receiveImage:image];
     [self.presentingViewController dismissViewControllerAnimated:YES completion:nil];
 }
 

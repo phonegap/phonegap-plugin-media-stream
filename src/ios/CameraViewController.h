@@ -7,10 +7,10 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "CDVImageCapture.h"
+#import "CDVMediaStream.h"
 
 @interface CameraViewController : UIViewController
 @property (assign, nonatomic) NSString *camDirection;
 @property (assign, nonatomic) NSInteger flashModeValue;
-@property (strong,nonatomic) CDVImageCapture * imageCaptureInterface;
+@property (strong,nonatomic) CDVMediaStream * mediaStreamInterface;
 @end
