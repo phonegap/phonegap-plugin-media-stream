@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="12121" systemVersion="16F73" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+    <device id="retina5_5" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12089"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="CameraViewController">
+            <connections>
+                <outlet property="bottomBarHeightConstraint" destination="qIF-YH-5Ab" id="CPt-l4-mwR"/>
+                <outlet property="bottomBarView" destination="BZp-h5-AmJ" id="o6j-Ht-ePa"/>
+                <outlet property="cameraContainerView" destination="PPI-1U-rNc" id="JOG-KR-uy6"/>
+                <outlet property="cameraViewBottomConstraint" destination="98F-sk-gP3" id="KHH-SJ-aeK"/>
+                <outlet property="cancelButton" destination="Ap0-9j-R4K" id="MOs-Xh-EUR"/>
+                <outlet property="takePhotoButton" destination="VGJ-Mc-QDp" id="IdV-9r-ukH"/>
+                <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="i5M-Pr-FkT">
+            <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <view contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" translatesAutoresizingMaskIntoConstraints="NO" id="PPI-1U-rNc">
+                    <rect key="frame" x="0.0" y="0.0" width="414" height="640"/>
+                    <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.0" colorSpace="custom" customColorSpace="sRGB"/>
+                </view>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="BZp-h5-AmJ">
+                    <rect key="frame" x="0.0" y="640" width="414" height="96"/>
+                    <subviews>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="VGJ-Mc-QDp" customClass="JPSCameraButton">
+                            <rect key="frame" x="174" y="15" width="66" height="66"/>
+                            <constraints>
+                                <constraint firstAttribute="height" constant="66" id="bf4-LR-WSO"/>
+                                <constraint firstAttribute="width" constant="66" id="tpq-lf-gwu"/>
+                            </constraints>
+                            <connections>
+                                <action selector="takePhotoButtonWasTouched:" destination="-1" eventType="touchUpInside" id="LLt-8y-05P"/>
+                            </connections>
+                        </button>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Ap0-9j-R4K">
+                            <rect key="frame" x="321" y="26" width="63" height="44"/>
+                            <constraints>
+                                <constraint firstAttribute="height" constant="44" id="kNQ-my-0uh"/>
+                            </constraints>
+                            <fontDescription key="fontDescription" type="system" pointSize="20"/>
+                            <state key="normal" title="Cancel"/>
+                            <connections>
+                                <action selector="cancelButtonWasTouched:" destination="-1" eventType="touchUpInside" id="KMN-Qx-RAn"/>
+                            </connections>
+                        </button>
+                    </subviews>
+                    <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.40000000000000002" colorSpace="custom" customColorSpace="sRGB"/>
+                    <constraints>
+                        <constraint firstItem="Ap0-9j-R4K" firstAttribute="centerY" secondItem="VGJ-Mc-QDp" secondAttribute="centerY" id="JgF-fp-AUF"/>
+                        <constraint firstItem="VGJ-Mc-QDp" firstAttribute="centerX" secondItem="BZp-h5-AmJ" secondAttribute="centerX" id="kia-YU-hQL"/>
+                        <constraint firstAttribute="height" constant="96" id="qIF-YH-5Ab"/>
+                        <constraint firstAttribute="bottom" secondItem="VGJ-Mc-QDp" secondAttribute="bottom" constant="15" id="rBG-dv-9Fu"/>
+                        <constraint firstAttribute="trailing" secondItem="Ap0-9j-R4K" secondAttribute="trailing" constant="30" id="vs6-7o-MO3"/>
+                    </constraints>
+                </view>
+            </subviews>
+            <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <constraints>
+                <constraint firstItem="BZp-h5-AmJ" firstAttribute="top" secondItem="PPI-1U-rNc" secondAttribute="bottom" id="98F-sk-gP3"/>
+                <constraint firstAttribute="trailing" secondItem="PPI-1U-rNc" secondAttribute="trailing" id="Fem-ih-tYa"/>
+                <constraint firstItem="PPI-1U-rNc" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" id="HvJ-Tg-rib"/>
+                <constraint firstAttribute="trailing" secondItem="BZp-h5-AmJ" secondAttribute="trailing" id="JXE-6k-42G"/>
+                <constraint firstItem="BZp-h5-AmJ" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="NfG-nY-aEF"/>
+                <constraint firstItem="PPI-1U-rNc" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="eig-ov-AOC"/>
+                <constraint firstAttribute="bottom" secondItem="BZp-h5-AmJ" secondAttribute="bottom" id="fB9-gO-CpR"/>
+            </constraints>
+            <point key="canvasLocation" x="-35" y="28"/>
+        </view>
+    </objects>
+</document>

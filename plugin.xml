@@ -34,5 +34,12 @@
     </config-file>
     <header-file src="src/ios/CDVMediaStream.h"/>
     <source-file src="src/ios/CDVMediaStream.m"/>
+    <header-file src="src/ios/CameraViewController.h"/>
+    <source-file src="src/ios/CameraViewController.m"/>
+    <resource-file src="src/ios/CameraViewController.xib"/>
+    <header-file src="src/ios/JPSCameraButton.h"/>
+    <source-file src="src/ios/JPSCameraButton.m"/>
+    <header-file src="src/ios/UIImage+DrawBlock.h"/>
+    <source-file src="src/ios/UIImage+DrawBlock.m"/>
   </platform>
 </plugin>
