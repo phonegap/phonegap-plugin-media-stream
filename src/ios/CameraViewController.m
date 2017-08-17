@@ -24,6 +24,7 @@
 @property (nonatomic, strong) NSOperationQueue *captureQueue;
 @property (nonatomic, assign) UIImageOrientation imageOrientation;
 @property (assign, nonatomic) AVCaptureFlashMode flashMode;
+@property (nonatomic, assign) BOOL videoStarted;
 @end
 
 
@@ -215,9 +216,12 @@
         self.capturePreviewLayer.videoGravity = AVLayerVideoGravityResizeAspectFill;
 
         // Still Image Output
-        AVCaptureStillImageOutput *stillOutput = [[AVCaptureStillImageOutput alloc] init];
-        stillOutput.outputSettings = @{AVVideoCodecKey: AVVideoCodecJPEG};
-        [self.session addOutput:stillOutput];
+        if([self.task isEqualToString:@"imageCapture"]){
+            AVCaptureStillImageOutput *stillOutput = [[AVCaptureStillImageOutput alloc] init];
+            stillOutput.outputSettings = @{AVVideoCodecKey: AVVideoCodecJPEG};
+            [self.session addOutput:stillOutput];
+            
+        }
     }];
     return operation;
 }
@@ -234,6 +238,7 @@
         [self.cameraContainerView addSubview:self.capturePreviewView];
         //[self.capturePreviewView autoPinEdgesToSuperviewEdges];
         [self.capturePreviewView.layer addSublayer:self.capturePreviewLayer];
+        self.videoStarted = YES;
         [self.session startRunning];
         if ([[self currentDevice] hasFlash]) {
             [self updateFlashlightState];
@@ -359,7 +364,19 @@
 
 - (IBAction)takePhotoButtonWasTouched:(UIButton *)sender
 {
-    [self takePicture];
+    if([self.task  isEqual: @"imageCapture"]){
+        [self takePicture];
+    }
+    else {
+        if(self.videoStarted == NO){
+            [self takeVideo];
+        }
+        else{
+            self.videoStarted = NO;
+            // stop recording session -- in works
+        }
+    }
+
 }
 
 

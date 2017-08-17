@@ -11,6 +11,7 @@
 
 @interface CameraViewController : UIViewController
 @property (assign, nonatomic) NSString *camDirection;
+@property (assign, nonatomic) NSString *task;
 @property (assign, nonatomic) NSInteger flashModeValue;
 @property (strong,nonatomic) CDVMediaStream * mediaStreamInterface;
 @end
