@@ -8,8 +8,11 @@
 
 #import <UIKit/UIKit.h>
 #import "CDVMediaStream.h"
+#import <AVFoundation/AVFoundation.h>
 
-@interface CameraViewController : UIViewController
+@interface CameraViewController : UIViewController <AVCaptureVideoDataOutputSampleBufferDelegate>{
+    AVCaptureMovieFileOutput *movieOutput;
+}
 @property (assign, nonatomic) NSString *camDirection;
 @property (assign, nonatomic) NSString *task;
 @property (assign, nonatomic) NSInteger flashModeValue;

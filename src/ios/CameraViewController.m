@@ -220,7 +220,12 @@
             AVCaptureStillImageOutput *stillOutput = [[AVCaptureStillImageOutput alloc] init];
             stillOutput.outputSettings = @{AVVideoCodecKey: AVVideoCodecJPEG};
             [self.session addOutput:stillOutput];
-            
+        }
+        
+        // Video output
+        if([self.task isEqualToString:@"mediaRecorder"]){
+            movieOutput = [[AVCaptureMovieFileOutput alloc] init];
+            [self.session addOutput:movieOutput];
         }
     }];
     return operation;
@@ -238,7 +243,7 @@
         [self.cameraContainerView addSubview:self.capturePreviewView];
         //[self.capturePreviewView autoPinEdgesToSuperviewEdges];
         [self.capturePreviewView.layer addSublayer:self.capturePreviewLayer];
-        self.videoStarted = YES;
+        self.videoStarted = NO;
         [self.session startRunning];
         if ([[self currentDevice] hasFlash]) {
             [self updateFlashlightState];
@@ -347,7 +352,52 @@
                                         }];
 
 }
-
+    
+- (void)takeVideo
+{
+    NSString *outputPath = [[NSString alloc] initWithFormat:@"%@%@", NSTemporaryDirectory(), @"output.mov"];
+    NSURL *outputURL = [[NSURL alloc] initFileURLWithPath:outputPath];
+        
+    __weak CameraViewController* weakSelf = self;
+    [movieOutput startRecordingToOutputFileURL:outputURL recordingDelegate:weakSelf];
+}
+    
+- (void)captureOutput:(AVCaptureFileOutput *)captureOutput
+didFinishRecordingToOutputFileAtURL:(NSURL *)outputFileURL
+      fromConnections:(NSArray *)connections
+                error:(NSError *)error
+{
+    NSLog(@"didFinishRecordingToOutputFileAtURL");
+    BOOL RecordedSuccessfully = YES;
+    if ([error code] != noErr)
+    {
+        // A problem occurred: Find out if the recording was successful.
+        id value = [[error userInfo] objectForKey:AVErrorRecordingSuccessfullyFinishedKey];
+        if (value)
+        {
+                RecordedSuccessfully = [value boolValue];
+        }
+    }
+    if (RecordedSuccessfully)
+    {
+        //----- RECORDED SUCESSFULLY -----
+        ALAssetsLibrary *library = [[ALAssetsLibrary alloc] init];
+        if ([library videoAtPathIsCompatibleWithSavedPhotosAlbum:outputFileURL])
+        {
+            [library writeVideoAtPathToSavedPhotosAlbum:outputFileURL completionBlock:^(NSURL *assetURL, NSError *error)
+            {
+                if (error)
+                {
+                    // handle error
+                }
+            }];
+        }
+            
+        [self handleVideo:outputFileURL];
+            
+        NSLog(@"didFinishRecordingToOutputFileAtURL - success");
+    }
+}
 
 /**
  *  @brief Do something with the image that's been taken (camera) / chosen (photo album)
@@ -361,7 +411,13 @@
     [self.presentingViewController dismissViewControllerAnimated:YES completion:nil];
 }
 
-
+- (void)handleVideo:(NSURL *)outputURL
+{
+    NSLog(@"in handle video");
+    [self.mediaStreamInterface receiveVideo:outputURL];
+    [self.presentingViewController dismissViewControllerAnimated:YES completion:nil];
+}
+    
 - (IBAction)takePhotoButtonWasTouched:(UIButton *)sender
 {
     if([self.task  isEqual: @"imageCapture"]){
@@ -369,11 +425,12 @@
     }
     else {
         if(self.videoStarted == NO){
+            self.videoStarted = YES;
             [self takeVideo];
         }
         else{
             self.videoStarted = NO;
-            // stop recording session -- in works
+            [movieOutput stopRecording];
         }
     }
 
