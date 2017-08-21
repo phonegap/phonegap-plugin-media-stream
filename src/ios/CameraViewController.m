@@ -187,7 +187,7 @@
 {
     NSBlockOperation *operation = [NSBlockOperation blockOperationWithBlock:^{
         self.session = [[AVCaptureSession alloc] init];
-        self.session.sessionPreset = AVCaptureSessionPresetPhoto;
+        self.session.sessionPreset = AVCaptureSessionPresetMedium;
         AVCaptureDevice *device = [AVCaptureDevice defaultDeviceWithMediaType:AVMediaTypeVideo];
         if([self.camDirection isEqualToString:@"frontcamera"]){
             device = [self frontCamera];
@@ -390,11 +390,11 @@ didFinishRecordingToOutputFileAtURL:(NSURL *)outputFileURL
                 if (error)
                 {
                     // handle error
+                    NSLog(@"%@", error);
                 }
+                [self handleVideo:outputFileURL];
             }];
         }
-            
-        [self handleVideo:outputFileURL];
             
         NSLog(@"didFinishRecordingToOutputFileAtURL - success");
     }
