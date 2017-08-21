@@ -10,7 +10,7 @@
 #import "CDVMediaStream.h"
 #import <AVFoundation/AVFoundation.h>
 
-@interface CameraViewController : UIViewController <AVCaptureVideoDataOutputSampleBufferDelegate>{
+@interface CameraViewController : UIViewController <AVCaptureFileOutputRecordingDelegate>{
     AVCaptureMovieFileOutput *movieOutput;
 }
 @property (assign, nonatomic) NSString *camDirection;
