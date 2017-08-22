@@ -40,7 +40,6 @@
 
     // Initialize the capture queue
     self.captureQueue = [[NSOperationQueue alloc] init];
-
     [self.cancelButton setTitle:[_mediaStreamInterface pluginLocalizedString:@"Cancel"] forState:UIControlStateNormal];
 
     // Initialise the blur effect used when switching between cameras
@@ -221,12 +220,17 @@
             AVCaptureStillImageOutput *stillOutput = [[AVCaptureStillImageOutput alloc] init];
             stillOutput.outputSettings = @{AVVideoCodecKey: AVVideoCodecJPEG};
             [self.session addOutput:stillOutput];
+
         }
-        
+
         // Video output
         if([self.task isEqualToString:@"mediaRecorder"]){
             movieOutput = [[AVCaptureMovieFileOutput alloc] init];
             [self.session addOutput:movieOutput];
+            AVCaptureDevice *audioDevice = [AVCaptureDevice defaultDeviceWithMediaType:AVMediaTypeAudio];
+            AVCaptureDeviceInput * audioInput = [AVCaptureDeviceInput deviceInputWithDevice:audioDevice error:nil];
+            [self.session addInput:audioInput];
+
         }
     }];
     return operation;
@@ -353,16 +357,16 @@
                                         }];
 
 }
-    
+
 - (void)takeVideo
 {
     NSString *outputPath = [[NSString alloc] initWithFormat:@"%@%@", NSTemporaryDirectory(), @"output.mov"];
     NSURL *outputURL = [[NSURL alloc] initFileURLWithPath:outputPath];
-        
+
     __weak CameraViewController* weakSelf = self;
     [movieOutput startRecordingToOutputFileURL:outputURL recordingDelegate:weakSelf];
+
 }
-    
 - (void)captureOutput:(AVCaptureFileOutput *)captureOutput
 didFinishRecordingToOutputFileAtURL:(NSURL *)outputFileURL
       fromConnections:(NSArray *)connections
@@ -376,9 +380,10 @@ didFinishRecordingToOutputFileAtURL:(NSURL *)outputFileURL
         id value = [[error userInfo] objectForKey:AVErrorRecordingSuccessfullyFinishedKey];
         if (value)
         {
-                RecordedSuccessfully = [value boolValue];
+            RecordedSuccessfully = [value boolValue];
         }
     }
+
     if (RecordedSuccessfully)
     {
         //----- RECORDED SUCESSFULLY -----
@@ -386,19 +391,20 @@ didFinishRecordingToOutputFileAtURL:(NSURL *)outputFileURL
         if ([library videoAtPathIsCompatibleWithSavedPhotosAlbum:outputFileURL])
         {
             [library writeVideoAtPathToSavedPhotosAlbum:outputFileURL completionBlock:^(NSURL *assetURL, NSError *error)
-            {
-                if (error)
-                {
-                    // handle error
-                    NSLog(@"%@", error);
-                }
-                [self handleVideo:outputFileURL];
-            }];
+             {
+                 if (error)
+                 {
+                     // handle error
+                     NSLog(@"%@", error);
+                 }
+                 [self handleVideo:outputFileURL];
+             }];
         }
-            
+
         NSLog(@"didFinishRecordingToOutputFileAtURL - success");
     }
 }
+
 
 /**
  *  @brief Do something with the image that's been taken (camera) / chosen (photo album)
@@ -418,7 +424,8 @@ didFinishRecordingToOutputFileAtURL:(NSURL *)outputFileURL
     [self.mediaStreamInterface receiveVideo:outputURL];
     [self.presentingViewController dismissViewControllerAnimated:YES completion:nil];
 }
-    
+
+
 - (IBAction)takePhotoButtonWasTouched:(UIButton *)sender
 {
     if([self.task  isEqual: @"imageCapture"]){
