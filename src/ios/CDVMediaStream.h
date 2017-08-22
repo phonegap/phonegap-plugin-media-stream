@@ -33,4 +33,5 @@
 - (NSString*) pluginLocalizedString:(NSString *)key;
 - (void)receiveImage:(UIImage*)image;
 - (void)receiveVideo:(NSURL*)outputURL;
+- (void)sendPluginResult:(NSDictionary*)dict keepResult:(BOOL)keep;
 @end

@@ -425,7 +425,13 @@ didFinishRecordingToOutputFileAtURL:(NSURL *)outputFileURL
 - (void)handleVideo:(NSURL *)outputURL
 {
     NSLog(@"in handle video");
-    [self.mediaStreamInterface receiveVideo:outputURL];
+
+    // fire the stop event and return file path
+    NSMutableDictionary* dict = [[NSMutableDictionary alloc] init];
+    [dict setObject:@"inactive" forKey:@"state"];
+    [dict setObject:[outputURL absoluteString] forKey:@"url"];
+    [self.mediaStreamInterface sendPluginResult:dict keepResult:NO];
+
     [self.presentingViewController dismissViewControllerAnimated:YES completion:nil];
 }
 
@@ -438,6 +444,12 @@ didFinishRecordingToOutputFileAtURL:(NSURL *)outputFileURL
     else {
         if(self.videoStarted == NO){
             self.videoStarted = YES;
+
+            // fire the started event
+            NSMutableDictionary* dict = [[NSMutableDictionary alloc] init];
+            [dict setObject:@"recording" forKey:@"state"];
+            [self.mediaStreamInterface sendPluginResult:dict keepResult:YES];
+
             [self takeVideo];
         }
         else{
