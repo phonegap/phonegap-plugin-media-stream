@@ -360,9 +360,7 @@
 
 - (void)takeVideo
 {
-    NSString *outputPath = [[NSString alloc] initWithFormat:@"%@%@", NSTemporaryDirectory(), @"output.mov"];
-    NSURL *outputURL = [[NSURL alloc] initFileURLWithPath:outputPath];
-
+    NSURL *outputURL = [self getStorageDirectory];
     __weak CameraViewController* weakSelf = self;
     [movieOutput startRecordingToOutputFileURL:outputURL recordingDelegate:weakSelf];
 
@@ -404,7 +402,13 @@ didFinishRecordingToOutputFileAtURL:(NSURL *)outputFileURL
         NSLog(@"didFinishRecordingToOutputFileAtURL - success");
     }
 }
-
+- (NSURL*) getStorageDirectory
+{
+    NSFileManager* fm = [NSFileManager defaultManager];
+    NSArray *URLs = [fm URLsForDirectory:NSLibraryDirectory inDomains:NSUserDomainMask];
+    NSURL *libraryDirectoryUrl = [URLs objectAtIndex:0];
+    return [libraryDirectoryUrl URLByAppendingPathComponent:@"NoCloud/output.mov"];
+}
 
 /**
  *  @brief Do something with the image that's been taken (camera) / chosen (photo album)
