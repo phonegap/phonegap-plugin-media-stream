@@ -422,7 +422,10 @@ didFinishRecordingToOutputFileAtURL:(NSURL *)outputFileURL
             NSLog(@"%@", err);
         }
     }
-    return [libraryDirectoryUrl URLByAppendingPathComponent:@"output.mov"];
+    NSString *uuid = [[NSUUID UUID] UUIDString];
+    uuid = [uuid stringByAppendingString:@".mov"];
+    libraryDirectoryUrl = [libraryDirectoryUrl URLByAppendingPathComponent:uuid];
+    return libraryDirectoryUrl;
 }
 
 /**
