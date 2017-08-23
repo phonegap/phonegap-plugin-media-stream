@@ -424,8 +424,7 @@ didFinishRecordingToOutputFileAtURL:(NSURL *)outputFileURL
     }
     NSString *uuid = [[NSUUID UUID] UUIDString];
     uuid = [uuid stringByAppendingString:@".mov"];
-    libraryDirectoryUrl = [libraryDirectoryUrl URLByAppendingPathComponent:uuid];
-    return libraryDirectoryUrl;
+    return [libraryDirectoryUrl URLByAppendingPathComponent:uuid];
 }
 
 /**
