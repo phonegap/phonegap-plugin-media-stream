@@ -384,21 +384,7 @@ didFinishRecordingToOutputFileAtURL:(NSURL *)outputFileURL
 
     if (RecordedSuccessfully)
     {
-        //----- RECORDED SUCESSFULLY -----
-        ALAssetsLibrary *library = [[ALAssetsLibrary alloc] init];
-        if ([library videoAtPathIsCompatibleWithSavedPhotosAlbum:outputFileURL])
-        {
-            [library writeVideoAtPathToSavedPhotosAlbum:outputFileURL completionBlock:^(NSURL *assetURL, NSError *error)
-             {
-                 if (error)
-                 {
-                     // handle error
-                     NSLog(@"%@", error);
-                 }
-                 [self handleVideo:outputFileURL];
-             }];
-        }
-
+        [self handleVideo:outputFileURL];
         NSLog(@"didFinishRecordingToOutputFileAtURL - success");
     }
 }
@@ -411,14 +397,11 @@ didFinishRecordingToOutputFileAtURL:(NSURL *)outputFileURL
     NSURL *libraryDirectoryUrl = [URLs objectAtIndex:0];
     libraryDirectoryUrl = [libraryDirectoryUrl URLByAppendingPathComponent:@"NoCloud/"];
     BOOL exists = [fm fileExistsAtPath:libraryDirectoryUrl.path  isDirectory:&isDir];
-    if (exists) {
-        // file exists
-        if (isDir) {
-            // [fm removeItemAtURL:libraryDirectoryUrl error:&err];
-        }
-    } else {
+    if (!exists)
+    {
         [fm createDirectoryAtURL:libraryDirectoryUrl withIntermediateDirectories:YES attributes:nil error:&err];
-        if(err != nil) {
+        if(err != nil)
+        {
             NSLog(@"%@", err);
         }
     }
