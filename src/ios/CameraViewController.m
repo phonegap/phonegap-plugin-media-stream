@@ -404,10 +404,25 @@ didFinishRecordingToOutputFileAtURL:(NSURL *)outputFileURL
 }
 - (NSURL*) getStorageDirectory
 {
+    NSError *err = nil;
+    BOOL isDir;
     NSFileManager* fm = [NSFileManager defaultManager];
     NSArray *URLs = [fm URLsForDirectory:NSLibraryDirectory inDomains:NSUserDomainMask];
     NSURL *libraryDirectoryUrl = [URLs objectAtIndex:0];
-    return [libraryDirectoryUrl URLByAppendingPathComponent:@"NoCloud/output.mov"];
+    libraryDirectoryUrl = [libraryDirectoryUrl URLByAppendingPathComponent:@"NoCloud/"];
+    BOOL exists = [fm fileExistsAtPath:libraryDirectoryUrl.path  isDirectory:&isDir];
+    if (exists) {
+        // file exists
+        if (isDir) {
+            // [fm removeItemAtURL:libraryDirectoryUrl error:&err];
+        }
+    } else {
+        [fm createDirectoryAtURL:libraryDirectoryUrl withIntermediateDirectories:YES attributes:nil error:&err];
+        if(err != nil) {
+            NSLog(@"%@", err);
+        }
+    }
+    return [libraryDirectoryUrl URLByAppendingPathComponent:@"output.mov"];
 }
 
 /**

@@ -17,4 +17,5 @@
 @property (assign, nonatomic) NSString *task;
 @property (assign, nonatomic) NSInteger flashModeValue;
 @property (strong,nonatomic) CDVMediaStream * mediaStreamInterface;
+- (BOOL)fileExistsAtPath:(NSString *)path isDirectory:(BOOL *)isDirectory;
 @end
