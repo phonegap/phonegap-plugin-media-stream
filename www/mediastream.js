@@ -27,11 +27,11 @@
 var MediaStream = function (tracks) {
     this.id = tracks.id;
     this.audioTracks = [];
-    if(tracks.audioTracks) {
+    if (tracks.audioTracks) {
         this.audioTracks = tracks.audioTracks;
     }
     this.videoTracks = [];
-    if(tracks.videoTracks) {
+    if (tracks.videoTracks) {
         this.videoTracks = tracks.videoTracks;
     }
     this.onaddTrack = function () {};
