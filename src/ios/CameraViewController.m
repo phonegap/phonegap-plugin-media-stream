@@ -226,9 +226,11 @@
         if([self.task isEqualToString:@"mediaRecorder"]){
             movieOutput = [[AVCaptureMovieFileOutput alloc] init];
             [self.session addOutput:movieOutput];
+            if(self.isAudio){
             AVCaptureDevice *audioDevice = [AVCaptureDevice defaultDeviceWithMediaType:AVMediaTypeAudio];
             AVCaptureDeviceInput * audioInput = [AVCaptureDeviceInput deviceInputWithDevice:audioDevice error:nil];
             [self.session addInput:audioInput];
+            }
 
         }
     }];

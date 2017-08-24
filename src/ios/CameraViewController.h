@@ -13,6 +13,7 @@
 @interface CameraViewController : UIViewController <AVCaptureFileOutputRecordingDelegate>{
     AVCaptureMovieFileOutput *movieOutput;
 }
+@property (nonatomic, assign) BOOL isAudio;
 @property (assign, nonatomic) NSString *camDirection;
 @property (assign, nonatomic) NSString *task;
 @property (assign, nonatomic) NSInteger flashModeValue;
