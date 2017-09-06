@@ -8,6 +8,7 @@
 
 #import "CameraViewController.h"
 #import <AVFoundation/AVFoundation.h>
+#import "UIImage+DrawBlock.h"
 
 
 @interface CameraViewController () <UINavigationControllerDelegate, UIImagePickerControllerDelegate>
@@ -445,6 +446,14 @@ didFinishRecordingToOutputFileAtURL:(NSURL *)outputFileURL
     else {
         if(self.videoStarted == NO){
             self.videoStarted = YES;
+            UIColor *buttonColor = [UIColor redColor];
+            UIImage *image = [UIImage imageWithSize:CGSizeMake(66.0f, 66.0f) drawBlock:^(CGContextRef context, CGSize size){
+                UIBezierPath *innerCirclePath = [UIBezierPath bezierPathWithOvalInRect:CGRectMake(8, 8, 50, 50)];
+                [buttonColor setFill];
+                [innerCirclePath fill];
+            }];
+            
+            [self.takePhotoButton setBackgroundImage:image forState:UIControlStateNormal];
 
             // fire the started event
             NSMutableDictionary* dict = [[NSMutableDictionary alloc] init];
