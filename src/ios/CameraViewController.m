@@ -226,6 +226,10 @@
         // Video output
         if([self.task isEqualToString:@"mediaRecorder"]){
             movieOutput = [[AVCaptureMovieFileOutput alloc] init];
+            Float64 totalSeconds = self.time /1000 ;
+            int32_t timeScale = 30;
+            CMTime maxDuration = CMTimeMakeWithSeconds(totalSeconds, timeScale);
+            movieOutput.maxRecordedDuration = maxDuration;
             [self.session addOutput:movieOutput];
             if(self.isAudio){
             AVCaptureDevice *audioDevice = [AVCaptureDevice defaultDeviceWithMediaType:AVMediaTypeAudio];
