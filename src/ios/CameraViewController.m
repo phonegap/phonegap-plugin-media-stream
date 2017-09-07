@@ -446,14 +446,8 @@ didFinishRecordingToOutputFileAtURL:(NSURL *)outputFileURL
     else {
         if(self.videoStarted == NO){
             self.videoStarted = YES;
-            UIColor *buttonColor = [UIColor redColor];
-            UIImage *image = [UIImage imageWithSize:CGSizeMake(66.0f, 66.0f) drawBlock:^(CGContextRef context, CGSize size){
-                UIBezierPath *innerCirclePath = [UIBezierPath bezierPathWithOvalInRect:CGRectMake(8, 8, 50, 50)];
-                [buttonColor setFill];
-                [innerCirclePath fill];
-            }];
-            
-            [self.takePhotoButton setBackgroundImage:image forState:UIControlStateNormal];
+
+            [self.takePhotoButton setBackgroundImage:[self innerRedCircle] forState:UIControlStateNormal];
 
             // fire the started event
             NSMutableDictionary* dict = [[NSMutableDictionary alloc] init];
@@ -470,6 +464,18 @@ didFinishRecordingToOutputFileAtURL:(NSURL *)outputFileURL
 
 }
 
+- (UIImage *)innerRedCircle {
+    static UIImage *_image = nil;
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        _image = [UIImage imageWithSize:CGSizeMake(66.0f, 66.0f) drawBlock:^(CGContextRef context, CGSize size) {
+            UIBezierPath *innerCirclePath = [UIBezierPath bezierPathWithOvalInRect:CGRectMake(8, 8, 50, 50)];
+            [[UIColor redColor] setFill];
+            [innerCirclePath fill];
+        }];
+    });
+    return _image;
+}
 
 - (IBAction)cancelButtonWasTouched:(UIButton *)sender
 {
