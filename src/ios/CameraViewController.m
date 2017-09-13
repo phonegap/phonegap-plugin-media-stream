@@ -393,6 +393,9 @@ didFinishRecordingToOutputFileAtURL:(NSURL *)outputFileURL
         [self handleVideo:outputFileURL];
         NSLog(@"didFinishRecordingToOutputFileAtURL - success");
     }
+    else {
+        [self.mediaStreamInterface receiveError];
+    }
 }
 - (NSURL*) getStorageDirectory
 {
