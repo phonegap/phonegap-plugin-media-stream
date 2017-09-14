@@ -120,25 +120,29 @@
 
 
     BOOL audio = [[dict valueForKey:@"audio"] boolValue];
-
-    if([dict valueForKey:@"video"] != (void*)kCFBooleanTrue && [dict valueForKey:@"video"] != (void*)kCFBooleanFalse){
-        if([[[dict valueForKey:@"video"] valueForKey:@"facingMode"]  isEqual: @"user"])
-        {
-            //facingMode is user
-            video = YES;
-            facingMode = @"user";
+    
+    if(![dict objectForKey:@"video"]) {
+        video = NO;
+    }
+    else {
+        if([dict valueForKey:@"video"] != (void*)kCFBooleanTrue && [dict valueForKey:@"video"] != (void*)kCFBooleanFalse){
+            if([[[dict valueForKey:@"video"] valueForKey:@"facingMode"]  isEqual: @"user"])
+            {
+                //facingMode is user
+                video = YES;
+                facingMode = @"user";
+            }
+            else if([[[dict valueForKey:@"video"] valueForKey:@"facingMode"]  isEqual: @"environment"])
+            {
+                //facingMode is environment
+                video = YES;
+                facingMode = @"environment";
+            }
         }
-        else if([[[dict valueForKey:@"video"] valueForKey:@"facingMode"]  isEqual: @"environment"])
-        {
-            //facingMode is environment
-            video = YES;
-            facingMode = @"environment";
+        else {
+            video = [[dict valueForKey:@"video"] boolValue];
         }
     }
-    else{
-        video = [[dict valueForKey:@"video"] boolValue];
-    }
-
     NSArray *devices = [AVCaptureDevice devicesWithMediaType:AVMediaTypeVideo];
     NSMutableArray *arrayVideo = [[NSMutableArray alloc] initWithCapacity:10];
     NSArray *audioDevices = [AVCaptureDevice devicesWithMediaType:AVMediaTypeAudio];
