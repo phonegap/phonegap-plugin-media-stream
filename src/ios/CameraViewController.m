@@ -351,15 +351,18 @@
     [output captureStillImageAsynchronouslyFromConnection:videoConnection
                                         completionHandler:^(CMSampleBufferRef imageDataSampleBuffer, NSError *error) {
 
-                                            if (!imageDataSampleBuffer || error) return;
+                                            if (!imageDataSampleBuffer || error) {
+                                                [self.mediaStreamInterface receiveError];
+                                            }
+                                            else {
+                                                NSData *imageData = [AVCaptureStillImageOutput jpegStillImageNSDataRepresentation:imageDataSampleBuffer];
 
-                                            NSData *imageData = [AVCaptureStillImageOutput jpegStillImageNSDataRepresentation:imageDataSampleBuffer];
-
-                                            UIImage *image = [UIImage imageWithCGImage:[[[UIImage alloc] initWithData:imageData] CGImage]
+                                                UIImage *image = [UIImage imageWithCGImage:[[[UIImage alloc] initWithData:imageData] CGImage]
                                                                                  scale:1.0f
                                                                            orientation:[self currentImageOrientation]];
 
-                                            [self handleImage:image];
+                                                [self handleImage:image];
+                                            }
                                         }];
 
 }
