@@ -78,13 +78,17 @@ mediaDevices.enumerateDevices = function () {
 
 mediaDevices.getUserMedia = function (constraints) {
     return new Promise(function (resolve, reject) {
+        if (constraints === undefined || (constraints.audio === false && constraints.video === false)) {
+            var err = new Error();
+            err.message = 'Failed to execute getUserMedia on MediaDevices: At least one of audio and video must be requested';
+            reject(err);
+        } else {
         var success = function (getMediaTracks) {
-            console.log('mediatrack' + getMediaTracks);
             var stream = new MediaStream(getMediaTracks);
             resolve(stream);
         };
         exec(success, null, 'Stream', 'getUserMedia', [constraints]);
-
+        }
     });
 };
 
