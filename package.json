@@ -1,7 +1,7 @@
 {
   "name": "phonegap-plugin-media-stream",
   "description": "",
-  "version": "1.1.1",
+  "version": "1.2.0",
   "homepage": "https://github.com/phonegap/phonegap-plugin-media-stream#readme",
   "repository": {
     "type": "git",
@@ -12,9 +12,16 @@
   },
   "cordova": {
     "id": "phonegap-plugin-media-stream",
-    "platforms": ["ios", "android", "browser"]
+    "platforms": [
+      "ios",
+      "android",
+      "browser"
+    ]
   },
-  "keywords": ["ecosystem:cordova", "ecosystem:phonegap"],
+  "keywords": [
+    "ecosystem:cordova",
+    "ecosystem:phonegap"
+  ],
   "engines": {
     "cordova": ">=3.0.0"
   },
@@ -22,8 +29,7 @@
   "license": "Apache-2.0",
   "scripts": {
     "test": "npm run eslint && jasmine-node --color spec",
-    "eslint":
-      "node node_modules/eslint/bin/eslint www && node node_modules/eslint/bin/eslint src && node node_modules/eslint/bin/eslint tests"
+    "eslint": "node node_modules/eslint/bin/eslint www && node node_modules/eslint/bin/eslint src && node node_modules/eslint/bin/eslint tests"
   },
   "devDependencies": {
     "eslint-config-semistandard": "^11.0.0",
