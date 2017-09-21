@@ -12,16 +12,9 @@
   },
   "cordova": {
     "id": "phonegap-plugin-media-stream",
-    "platforms": [
-      "ios",
-      "android",
-      "browser"
-    ]
+    "platforms": ["ios", "android", "browser"]
   },
-  "keywords": [
-    "ecosystem:cordova",
-    "ecosystem:phonegap"
-  ],
+  "keywords": ["ecosystem:cordova", "ecosystem:phonegap"],
   "engines": {
     "cordova": ">=3.0.0"
   },
@@ -29,7 +22,8 @@
   "license": "Apache-2.0",
   "scripts": {
     "test": "npm run eslint && jasmine-node --color spec",
-    "eslint": "node node_modules/eslint/bin/eslint www && node node_modules/eslint/bin/eslint src && node node_modules/eslint/bin/eslint tests"
+    "eslint":
+      "node node_modules/eslint/bin/eslint www && node node_modules/eslint/bin/eslint src && node node_modules/eslint/bin/eslint tests"
   },
   "devDependencies": {
     "eslint-config-semistandard": "^11.0.0",
@@ -41,7 +35,7 @@
     "husky": "^0.10.1",
     "eslint": "^4.0.0",
     "jasmine-node": "^1.14.5",
-    "pluginpub": "^0.0.8"
+    "pluginpub": "^0.0.9"
   },
   "dependencies": {
     "eslint": "^4.4.1"
