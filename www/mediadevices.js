@@ -28,19 +28,19 @@ var mediaDevices = {
 };
 
 var supportedConstraints = {
-    'width': true,
-    'height': true,
-    'aspectRatio': true,
-    'frameRate': true,
-    'facingMode': true,
-    'volume': true,
-    'sampleRate': true,
-    'sampleSize': true,
-    'echoCancellation': true,
-    'latency': true,
-    'channelCount': true,
-    'deviceId': true,
-    'groupId': true
+    width: true,
+    height: true,
+    aspectRatio: true,
+    frameRate: true,
+    facingMode: true,
+    volume: true,
+    sampleRate: true,
+    sampleSize: true,
+    echoCancellation: true,
+    latency: true,
+    channelCount: true,
+    deviceId: true,
+    groupId: true
 };
 
 mediaDevices.getSupportedConstraints = function () {
@@ -78,16 +78,20 @@ mediaDevices.enumerateDevices = function () {
 
 mediaDevices.getUserMedia = function (constraints) {
     return new Promise(function (resolve, reject) {
-        if (constraints === undefined || (constraints.audio === false && constraints.video === false)) {
+        if (
+            constraints === undefined ||
+            (constraints.audio === false && constraints.video === false)
+        ) {
             var err = new Error();
-            err.message = 'Failed to execute getUserMedia on MediaDevices: At least one of audio and video must be requested';
+            err.message =
+                'Failed to execute getUserMedia on MediaDevices: At least one of audio and video must be requested';
             reject(err);
         } else {
-        var success = function (getMediaTracks) {
-            var stream = new MediaStream(getMediaTracks);
-            resolve(stream);
-        };
-        exec(success, null, 'Stream', 'getUserMedia', [constraints]);
+            var success = function (getMediaTracks) {
+                var stream = new MediaStream(getMediaTracks);
+                resolve(stream);
+            };
+            exec(success, null, 'Stream', 'getUserMedia', [constraints]);
         }
     });
 };
