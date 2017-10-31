@@ -26,6 +26,7 @@
  */
 var MediaStream = function (tracks) {
     this.id = tracks.id;
+    this.active = false;
     this.audioTracks = [];
     if (tracks.audioTracks) {
         this.audioTracks = tracks.audioTracks;
@@ -36,7 +37,6 @@ var MediaStream = function (tracks) {
     }
     this.onaddTrack = function () {};
     this.onremoveTrack = function () {};
-    // this.active = true;
 };
 
 MediaStream.prototype.getAudioTracks = function () {
@@ -72,7 +72,6 @@ MediaStream.prototype.addTrack = function (trck) {
         this.audioTracks = this.audioTracks.concat(trck);
         this.onaddTrack();
     }
-
 };
 
 MediaStream.prototype.removeTrack = function (trck) {
@@ -86,7 +85,6 @@ MediaStream.prototype.removeTrack = function (trck) {
                 return;
             }
         }
-
     } else if (trck.kind === 'audio') {
         tracks = this.audioTracks;
         for (var j = 0; j < tracks.length; j++) {
@@ -96,11 +94,10 @@ MediaStream.prototype.removeTrack = function (trck) {
                 return;
             }
         }
-
     }
 };
 
-MediaStream.prototype.getTrackbyId = function (id) {
+MediaStream.prototype.getTrackById = function (id) {
     var tracks = this.videoTracks.concat(this.audioTracks);
     for (var i = 0; i < tracks.length; i++) {
         if (tracks[i].id === id) {
@@ -116,8 +113,20 @@ MediaStream.prototype.clone = function () {
                 .toString(16)
                 .substring(1);
         };
-        return s4() + s4() + '-' + s4() + '-' + s4() + '-' +
-           s4() + '-' + s4() + s4() + s4();
+        return (
+            s4() +
+            s4() +
+            '-' +
+            s4() +
+            '-' +
+            s4() +
+            '-' +
+            s4() +
+            '-' +
+            s4() +
+            s4() +
+            s4()
+        );
     };
 
     var video;
