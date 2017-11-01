@@ -1,4 +1,4 @@
-/* globals require, describe, it, expect */
+/* globals require, describe, it, expect, spyOn */
 
 /*!
  * Module dependencies.
@@ -8,7 +8,7 @@ var cordova = require('./helper/cordova');
 var mediaDevices = require('../www/mediadevices');
 var MediaStream = require('../www/mediastream');
 
-var mockStream = { id: 'ack' };
+var mockStream = { id: 'ack', audioTracks: [], videoTracks: [] };
 
 /*!
  * Specification.
@@ -40,10 +40,13 @@ describe('phonegap-plugin-media-stream', function () {
             expect(stream.active).toEqual(false);
             expect(stream.getAudioTracks).toBeDefined();
             expect(typeof stream.getAudioTracks).toBe('function');
+            expect(stream.getAudioTracks().length).toBe(0);
             expect(stream.getVideoTracks).toBeDefined();
             expect(typeof stream.getVideoTracks).toBe('function');
+            expect(stream.getVideoTracks().length).toBe(0);
             expect(stream.getTracks).toBeDefined();
             expect(typeof stream.getTracks).toBe('function');
+            expect(stream.getTracks().length).toBe(0);
             expect(stream.getTrackById).toBeDefined();
             expect(typeof stream.getTrackById).toBe('function');
             expect(stream.addTrack).toBeDefined();
