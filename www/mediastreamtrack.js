@@ -28,10 +28,38 @@ var MediaStreamTrack = function (track) {
     this.readyState = track.readyState;
 };
 
-MediaStreamTrack.prototype.clone = function () {};
+MediaStreamTrack.prototype.clone = function () {
+    var guid = function () {
+        var s4 = function () {
+            return Math.floor((1 + Math.random()) * 0x10000)
+                .toString(16)
+                .substring(1);
+        };
+        return (
+            s4() +
+            s4() +
+            '-' +
+            s4() +
+            '-' +
+            s4() +
+            '-' +
+            s4() +
+            '-' +
+            s4() +
+            s4() +
+            s4()
+        );
+    };
+
+    var clonedTrack = new MediaStreamTrack(this);
+    clonedTrack.id = guid();
+    return clonedTrack;
+};
+
 MediaStreamTrack.prototype.stop = function () {
     this.readyState = 'ended';
 };
+
 MediaStreamTrack.prototype.getCapabilities = function () {};
 MediaStreamTrack.prototype.getConstraints = function () {};
 MediaStreamTrack.prototype.getSettings = function () {};
