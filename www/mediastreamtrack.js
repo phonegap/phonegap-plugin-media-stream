@@ -29,7 +29,9 @@ var MediaStreamTrack = function (track) {
 };
 
 MediaStreamTrack.prototype.clone = function () {};
-MediaStreamTrack.prototype.stop = function () {};
+MediaStreamTrack.prototype.stop = function () {
+    this.readyState = 'ended';
+};
 MediaStreamTrack.prototype.getCapabilities = function () {};
 MediaStreamTrack.prototype.getConstraints = function () {};
 MediaStreamTrack.prototype.getSettings = function () {};

@@ -95,5 +95,11 @@ describe('phonegap-plugin-media-stream', function () {
             expect(track.applyConstraints).toBeDefined();
             expect(typeof track.applyConstraints).toBe('function');
         });
+
+        it('mediaStreamTrack.stop', function () {
+            var track = new MediaStreamTrack(mockTrack);
+            track.stop();
+            expect(track.readyState).toBe('ended');
+        });
     });
 });
