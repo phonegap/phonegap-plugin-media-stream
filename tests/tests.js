@@ -68,7 +68,7 @@ exports.defineAutoTests = function () {
 
         });
 
-        it('getSupportedConstraints should return a promise with attributes', function () {
+        it('getSupportedConstraints should return a MediaTrackSupportedConstraints object', function () {
 
             var support = navigator.mediaDevices.getSupportedConstraints();
             expect(support.width).toBeDefined();
