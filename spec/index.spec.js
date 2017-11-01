@@ -96,6 +96,31 @@ describe('phonegap-plugin-media-stream', function () {
             expect(typeof track.applyConstraints).toBe('function');
         });
 
+        it('mediaStreamTrack.clone', function () {
+            var track = new MediaStreamTrack(mockTrack);
+            var clonedTrack = track.clone();
+            expect(clonedTrack.id).toNotBe(track.id);
+            expect(clonedTrack).toBeDefined();
+            expect(typeof clonedTrack).toBe('object');
+            expect(clonedTrack.kind).toEqual(track.kind);
+            expect(clonedTrack.label).toEqual(track.label);
+            expect(clonedTrack.enabled).toEqual(track.enabled);
+            expect(clonedTrack.muted).toEqual(track.muted);
+            expect(clonedTrack.readyState).toEqual(track.readyState);
+            expect(clonedTrack.clone).toBeDefined();
+            expect(typeof clonedTrack.clone).toBe('function');
+            expect(clonedTrack.stop).toBeDefined();
+            expect(typeof clonedTrack.stop).toBe('function');
+            expect(clonedTrack.getCapabilities).toBeDefined();
+            expect(typeof clonedTrack.getCapabilities).toBe('function');
+            expect(clonedTrack.getConstraints).toBeDefined();
+            expect(typeof clonedTrack.getConstraints).toBe('function');
+            expect(clonedTrack.getSettings).toBeDefined();
+            expect(typeof clonedTrack.getSettings).toBe('function');
+            expect(clonedTrack.applyConstraints).toBeDefined();
+            expect(typeof clonedTrack.applyConstraints).toBe('function');
+        });
+
         it('mediaStreamTrack.stop', function () {
             var track = new MediaStreamTrack(mockTrack);
             track.stop();
