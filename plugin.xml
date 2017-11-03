@@ -27,6 +27,9 @@
     <js-module src="www/MediaStream.js" name="MediaStream">
       <clobbers target="MediaStream"/>
     </js-module>
+    <js-module src="www/MediaStreamTrack.js" name="MediaStreamTrack">
+      <clobbers target="MediaStreamTrack"/>
+    </js-module>
     <config-file target="config.xml" parent="/*">
       <feature name="Stream">
         <param name="ios-package" value="CDVMediaStream"/>
