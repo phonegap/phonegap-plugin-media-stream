@@ -158,7 +158,10 @@
             if(device.position == AVCaptureDevicePositionFront){
                 [videoTracks setObject:uuid forKey:@"id"];
                 [videoTracks setObject:@"video" forKey:@"kind"];
-                [videoTracks setObject:@"frontcamera" forKey:@"description"];
+                [videoTracks setObject:@"frontcamera" forKey:@"label"];
+                [videoTracks setObject: [NSNumber numberWithBool:YES] forKey:@"enabled"];
+                [videoTracks setObject:[NSNumber numberWithBool:NO] forKey:@"muted"];
+                [videoTracks setObject:@"live" forKey:@"readyState"];
                 if([facingMode isEqualToString: @"user"] || [facingMode isEqualToString: @""]){
                     [arrayVideo addObject:videoTracks];
                 }
@@ -166,7 +169,10 @@
             else{
                 [videoTracks setObject:uuid forKey:@"id"];
                 [videoTracks setObject:@"video" forKey:@"kind"];
-                [videoTracks setObject:@"rearcamera" forKey:@"description"];
+                [videoTracks setObject:@"rearcamera" forKey:@"label"];
+                [videoTracks setObject: [NSNumber numberWithBool:YES] forKey:@"enabled"];
+                [videoTracks setObject:[NSNumber numberWithBool:NO] forKey:@"muted"];
+                [videoTracks setObject:@"live" forKey:@"readyState"];
                 if([facingMode isEqualToString: @"environment"] || [facingMode isEqualToString: @""]){
                     [arrayVideo addObject:videoTracks];
                 }
@@ -182,7 +188,10 @@
             NSString *uuid = [[NSUUID UUID] UUIDString];
             [audioTracks setObject:uuid forKey:@"id"];
             [audioTracks setObject:@"audio" forKey:@"kind"];
-            [audioTracks setObject:device.deviceType forKey:@"description"];
+            [audioTracks setObject:device.deviceType forKey:@"label"];
+            [audioTracks setObject: [NSNumber numberWithBool:YES] forKey:@"enabled"];
+            [audioTracks setObject:[NSNumber numberWithBool:NO] forKey:@"muted"];
+            [audioTracks setObject:@"live" forKey:@"readyState"];
             [arrayAudio addObject:audioTracks];
         }
         [userMedia setObject:arrayAudio forKey:@"audioTracks"];

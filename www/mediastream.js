@@ -27,14 +27,8 @@
 var MediaStream = function (tracks) {
     this.id = tracks.id;
     this.active = false;
-    this.audioTracks = [];
-    if (tracks.audioTracks) {
-        this.audioTracks = tracks.audioTracks;
-    }
-    this.videoTracks = [];
-    if (tracks.videoTracks) {
-        this.videoTracks = tracks.videoTracks;
-    }
+    this.audioTracks = tracks.audioTracks;
+    this.videoTracks = tracks.videoTracks;
     this.onaddTrack = function () {};
     this.onremoveTrack = function () {};
 };
