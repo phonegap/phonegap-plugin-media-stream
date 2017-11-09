@@ -1,4 +1,3 @@
-
 /*
  *
  * Licensed to the Apache Software Foundation (ASF) under one
@@ -38,19 +37,31 @@ mediaDevices.enumerateDevices = function () {
 mediaDevices.getUserMedia = function (constraints) {
     var mediaDevice = this.nativeMediaDevices;
 
+    var audio = false;
+    var video = false;
+
+    if (typeof constraints.audio === 'object' || constraints.audio === true) {
+        audio = true;
+    }
+    if (typeof constraints.video === 'object' || constraints.video === true) {
+        video = true;
+    }
+
     return new Promise(function (resolve, reject) {
         var success = function () {
-            mediaDevice.getUserMedia(constraints)
+            mediaDevice
+                .getUserMedia(constraints)
                 .then(function (stream) {
                     resolve(stream);
-                }).catch(function (error) {
+                })
+                .catch(function (error) {
                     reject(error);
                 });
         };
         var fail = function (error) {
             reject(error);
         };
-        exec(success, fail, 'MediaStreams', 'getUserMedia', [constraints]);
+        exec(success, fail, 'MediaStreams', 'getUserMedia', [audio, video]);
     });
 };
 
