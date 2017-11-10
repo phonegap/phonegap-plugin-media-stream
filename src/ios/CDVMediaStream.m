@@ -200,4 +200,33 @@
 }
 
 
+- (void)getSettings:(CDVInvokedUrlCommand*)command
+{
+    NSString* id = [command argumentAtIndex:0];
+    AVCaptureDevice *device = [AVCaptureDevice deviceWithUniqueID:id];
+
+    NSMutableDictionary* settings = [NSMutableDictionary dictionaryWithCapacity:15];
+    [settings setObject:@"undefined" forKey:@"width"];
+    [settings setObject:@"undefined" forKey:@"height"];
+    [settings setObject:@"undefined" forKey:@"aspectRatio"];
+    [settings setObject:@"undefined" forKey:@"frameRate"];
+    [settings setObject:@"undefined" forKey:@"facingMode"];
+    [settings setObject:@"undefined" forKey:@"volume"];
+    [settings setObject:@"undefined" forKey:@"sampleRate"];
+    [settings setObject:@"undefined" forKey:@"sampleSize"];
+    [settings setObject:@"undefined" forKey:@"echoCancellation"];
+    [settings setObject:@"undefined" forKey:@"autoGainControl"];
+    [settings setObject:@"undefined" forKey:@"noiseSuppression"];
+    [settings setObject:@"undefined" forKey:@"latency"];
+    [settings setObject:@"undefined" forKey:@"channelCount"];
+    [settings setObject:device.uniqueID forKey:@"deviceId"];
+    [settings setObject:@"undefined" forKey:@"groupId"];
+
+    CDVPluginResult* result = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK messageAsDictionary:settings];
+    [self.commandDelegate sendPluginResult:result callbackId:command.callbackId];
+
+
+}
+
+
 @end
