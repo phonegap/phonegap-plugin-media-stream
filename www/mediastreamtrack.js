@@ -18,14 +18,25 @@
  * under the License.
  *
 */
+/* globals Promise, cordova */
+var exec = cordova.require('cordova/exec');
 
 var MediaStreamTrack = function (track) {
+    var that = this;
+    var success = function (settings) {
+        console.log('settings: ' + JSON.stringify(settings));
+        that._settings = settings;
+    };
+
+    exec(success, null, 'Stream', 'getSettings', [track.id]);
+
     this.kind = track.kind;
     this.id = track.id;
     this.label = track.label;
     this.enabled = track.enabled;
     this.muted = track.muted;
     this.readyState = track.readyState;
+    this._settings = {};
 };
 
 MediaStreamTrack.prototype.clone = function () {
@@ -62,7 +73,11 @@ MediaStreamTrack.prototype.stop = function () {
 
 MediaStreamTrack.prototype.getCapabilities = function () {};
 MediaStreamTrack.prototype.getConstraints = function () {};
-MediaStreamTrack.prototype.getSettings = function () {};
+
+MediaStreamTrack.prototype.getSettings = function () {
+    return this._settings;
+};
+
 MediaStreamTrack.prototype.applyConstraints = function () {};
 
 module.exports = MediaStreamTrack;

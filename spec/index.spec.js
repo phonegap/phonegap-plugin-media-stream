@@ -126,5 +126,10 @@ describe('phonegap-plugin-media-stream', function () {
             track.stop();
             expect(track.readyState).toBe('ended');
         });
+
+        it('mediaStreamTrack.getSettings', function () {
+            var track = new MediaStreamTrack(mockTrack);
+            expect(typeof track.getSettings()).toBe('object');
+        });
     });
 });
