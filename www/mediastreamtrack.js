@@ -71,13 +71,22 @@ MediaStreamTrack.prototype.stop = function () {
     this.readyState = 'ended';
 };
 
-MediaStreamTrack.prototype.getCapabilities = function () {};
-MediaStreamTrack.prototype.getConstraints = function () {};
+MediaStreamTrack.prototype.getCapabilities = function () {
+    return {};
+};
+
+MediaStreamTrack.prototype.getConstraints = function () {
+    return {};
+};
 
 MediaStreamTrack.prototype.getSettings = function () {
     return this._settings;
 };
 
-MediaStreamTrack.prototype.applyConstraints = function () {};
+MediaStreamTrack.prototype.applyConstraints = function (contraints) {
+    return new Promise(function (resolve, reject) {
+        resolve();
+    });
+};
 
 module.exports = MediaStreamTrack;
