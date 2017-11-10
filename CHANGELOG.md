@@ -1,5 +1,13 @@
 # Change Log
 
+## [v1.2.1](https://github.com/git@github.com:phonegap/phonegap-plugin-media-stream/tree/v1.2.1) (2017-11-10)
+[Full Changelog](https://github.com/git@github.com:phonegap/phonegap-plugin-media-stream/compare/v1.2.0...v1.2.1)
+
+- 1.2.1 [view commit](http://github.com/git@github.com:phonegap/phonegap-plugin-media-stream/commit/ef7593a2857c96d1ae84e30941de6d4a4f5a5b21)
+- :bookmark: Bumping plugin version to 1.2.1 [view commit](http://github.com/git@github.com:phonegap/phonegap-plugin-media-stream/commit/e013c15534842d0ad41aaee14de0a38e1846689d)
+- 🐛🐧 Issue #8: getUserMedia always prompts for audio recording and image/video capture permissions regardless of constraints [view commit](http://github.com/git@github.com:phonegap/phonegap-plugin-media-stream/commit/e423f1d1e907df441f752604fadf516dbbb2df7a)
+- Updating CHANGELOG [view commit](http://github.com/git@github.com:phonegap/phonegap-plugin-media-stream/commit/70e25f5e4ffd74aa3e8a8f40bdb91b21e0cf4cbe)
+
 ## [v1.2.0](https://github.com/git@github.com:phonegap/phonegap-plugin-media-stream/tree/v1.2.0) (2017-09-21)
 [Full Changelog](https://github.com/git@github.com:phonegap/phonegap-plugin-media-stream/compare/v1.1.1...v1.2.0)
 
