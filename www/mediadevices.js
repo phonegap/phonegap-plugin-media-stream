@@ -95,5 +95,6 @@ mediaDevices.getUserMedia = function (constraints) {
         }
     });
 };
-
+mediaDevices.getSupportedConstraints();
+mediaDevices.enumerateDevices();
 module.exports = mediaDevices;
