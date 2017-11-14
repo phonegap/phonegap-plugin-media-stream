@@ -18,7 +18,7 @@
  * under the License.
  *
  */
-/* globals Promise */
+/* globals Promise, MediaStreamTrack */
 
 /**
  * This class contains information about the getUserMedia API.
@@ -27,8 +27,30 @@
 var MediaStream = function (tracks) {
     this.id = tracks.id;
     this.active = false;
-    this.audioTracks = tracks.audioTracks;
-    this.videoTracks = tracks.videoTracks;
+    this.audioTracks = [];
+    this.videoTracks = [];
+    if (tracks.audioTracks) {
+        for (
+            var i = 0;
+            i < tracks.audioTracks.length;
+            i++
+        ) {
+            this.audioTracks.push(
+                new MediaStreamTrack(tracks.audioTracks[i])
+            );
+        }
+    }
+    if (tracks.videoTracks) {
+        for (
+            var j = 0;
+            j < tracks.videoTracks.length;
+            j++
+        ) {
+            this.videoTracks.push(
+                new MediaStreamTrack(tracks.videoTracks[j])
+            );
+        }
+    }
     this.onaddTrack = function () {};
     this.onremoveTrack = function () {};
 };

@@ -18,7 +18,7 @@
  * under the License.
  *
 */
-/* globals Promise, cordova, MediaStream, MediaStreamTrack */
+/* globals Promise, cordova, MediaStream */
 var exec = cordova.require('cordova/exec');
 var flagConstraints = true;
 var flagDevices = true;
@@ -88,35 +88,7 @@ mediaDevices.getUserMedia = function (constraints) {
             reject(err);
         } else {
             var success = function (getMediaTracks) {
-                var streamTracks = {
-                    id: 0,
-                    audioTracks: [],
-                    videoTracks: []
-                };
-                streamTracks.id = getMediaTracks.id;
-                if (getMediaTracks.audioTracks) {
-                    for (
-                        var i = 0;
-                        i < getMediaTracks.audioTracks.length;
-                        i++
-                    ) {
-                        streamTracks.audioTracks.push(
-                            new MediaStreamTrack(getMediaTracks.audioTracks[i])
-                        );
-                    }
-                }
-                if (getMediaTracks.videoTracks) {
-                    for (
-                        var j = 0;
-                        j < getMediaTracks.videoTracks.length;
-                        j++
-                    ) {
-                        streamTracks.videoTracks.push(
-                            new MediaStreamTrack(getMediaTracks.videoTracks[j])
-                        );
-                    }
-                }
-                var stream = new MediaStream(streamTracks);
+                var stream = new MediaStream(getMediaTracks);
                 resolve(stream);
             };
             exec(success, null, 'Stream', 'getUserMedia', [constraints]);
