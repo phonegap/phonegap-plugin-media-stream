@@ -20,59 +20,35 @@
 */
 /* globals Promise, cordova, MediaStream */
 var exec = cordova.require('cordova/exec');
-var flagConstraints = true;
-var flagDevices = true;
+var channel = require('cordova/channel');
 
 var mediaDevices = {
-    _devices: null
-};
-
-var supportedConstraints = {
-    width: true,
-    height: true,
-    aspectRatio: true,
-    frameRate: true,
-    facingMode: true,
-    volume: true,
-    sampleRate: true,
-    sampleSize: true,
-    echoCancellation: true,
-    latency: true,
-    channelCount: true,
-    deviceId: true,
-    groupId: true
+    _devices: null,
+    _supportedConstraints: {
+        width: true,
+        height: true,
+        aspectRatio: true,
+        frameRate: true,
+        facingMode: true,
+        volume: true,
+        sampleRate: true,
+        sampleSize: true,
+        echoCancellation: true,
+        latency: true,
+        channelCount: true,
+        deviceId: true,
+        groupId: true
+    }
 };
 
 mediaDevices.getSupportedConstraints = function () {
-    var success = function (constraints) {
-        console.log('constraints: ' + JSON.stringify(constraints));
-        supportedConstraints = constraints;
-    };
-
-    // assign new values returned from native ios ; until then default values returned
-    if (flagConstraints) {
-        exec(success, null, 'Stream', 'getSupportedConstraints', []);
-    }
-
-    flagConstraints = false;
-    return supportedConstraints;
+    return this._supportedConstraints;
 };
 
 mediaDevices.enumerateDevices = function () {
     var that = this;
     return new Promise(function (resolve, reject) {
-        var success = function (device) {
-            flagDevices = false;
-            console.log('success ' + device.devices);
-            that._devices = device.devices;
-            resolve(that._devices);
-        };
-
-        if (flagDevices) {
-            exec(success, null, 'Stream', 'enumerateDevices', []);
-        } else {
-            resolve(that._devices);
-        }
+        resolve(that._devices);
     });
 };
 
@@ -95,6 +71,17 @@ mediaDevices.getUserMedia = function (constraints) {
         }
     });
 };
-mediaDevices.getSupportedConstraints();
-mediaDevices.enumerateDevices();
+
+channel.onCordovaReady.subscribe(function () {
+    var success = function (value) {
+        if ('devices' in value) {
+            mediaDevices._devices = value;
+        } else {
+            mediaDevices._supportedConstraints = value;
+        }
+    };
+    exec(success, null, 'Stream', 'getSupportedConstraints', []);
+    exec(success, null, 'Stream', 'enumerateDevices', []);
+});
+
 module.exports = mediaDevices;
