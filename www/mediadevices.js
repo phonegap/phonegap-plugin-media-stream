@@ -21,9 +21,10 @@
 /* globals Promise, cordova, MediaStream */
 var exec = cordova.require('cordova/exec');
 var channel = require('cordova/channel');
-
+var flagConstraints = true;
+var flagDevices = true;
 var mediaDevices = {
-    _devices: null,
+    _devices: [],
     _supportedConstraints: {
         width: true,
         height: true,
@@ -42,13 +43,29 @@ var mediaDevices = {
 };
 
 mediaDevices.getSupportedConstraints = function () {
-    return this._supportedConstraints;
+    var successConstraints = function (constraints) {
+        mediaDevices._supportedConstraints = constraints;
+        flagConstraints = false;
+    };
+    if (!flagConstraints) {
+        return this._supportedConstraints;
+    } else {
+        exec(successConstraints, null, 'Stream', 'getSupportedConstraints', []);
+    }
 };
 
 mediaDevices.enumerateDevices = function () {
     var that = this;
     return new Promise(function (resolve, reject) {
-        resolve(that._devices);
+        var successDevices = function (device) {
+            mediaDevices._devices = device.devices;
+            flagDevices = false;
+        };
+        if (!flagDevices) {
+            resolve(that._devices);
+        } else {
+            exec(successDevices, null, 'Stream', 'enumerateDevices', []);
+        }
     });
 };
 
@@ -73,15 +90,16 @@ mediaDevices.getUserMedia = function (constraints) {
 };
 
 channel.onCordovaReady.subscribe(function () {
-    var success = function (value) {
-        if ('devices' in value) {
-            mediaDevices._devices = value;
-        } else {
-            mediaDevices._supportedConstraints = value;
-        }
+    var successConstraints = function (constraints) {
+        mediaDevices._supportedConstraints = constraints;
+        flagConstraints = false;
     };
-    exec(success, null, 'Stream', 'getSupportedConstraints', []);
-    exec(success, null, 'Stream', 'enumerateDevices', []);
+    var successDevices = function (device) {
+        mediaDevices._devices = device.devices;
+        flagDevices = false;
+    };
+    exec(successConstraints, null, 'Stream', 'getSupportedConstraints', []);
+    exec(successDevices, null, 'Stream', 'enumerateDevices', []);
 });
 
 module.exports = mediaDevices;
