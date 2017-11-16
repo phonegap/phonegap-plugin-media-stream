@@ -23,7 +23,8 @@
     "ecosystem:phonegap"
   ],
   "engines": {
-    "cordova": ">=3.0.0"
+    "cordova": ">=3.0.0",
+    "cordova-android": ">=6.3.0"
   },
   "author": "Adobe PhoneGap Team",
   "license": "Apache-2.0",
