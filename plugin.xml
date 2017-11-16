@@ -2,7 +2,9 @@
 <plugin xmlns="http://cordova.apache.org/ns/plugins/1.0" id="phonegap-plugin-media-stream" version="1.2.1">
   <name>MediaStream</name>
   <dependency id="es6-promise-plugin"/>
-  <dependency id="cordova-plugin-compat" version="^1.1.0"/>
+  <engines>
+      <engine name="cordova-android" version=">=6.3.0" />
+  </engines>
   <platform name="android">
     <js-module src="www/android/MediaDevices.js" name="MediaDevices">
       <clobbers target="navigator.mediaDevices"/>
