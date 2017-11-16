@@ -30,7 +30,6 @@
 - (void)getUserMedia:(CDVInvokedUrlCommand*)command;
 - (void)createID:(CDVInvokedUrlCommand*)command;
 
-- (NSString*) pluginLocalizedString:(NSString *)key;
 - (void)receiveImage:(UIImage*)image;
 - (void)receiveError;
 - (void)sendPluginResult:(NSDictionary*)dict keepResult:(BOOL)keep;
