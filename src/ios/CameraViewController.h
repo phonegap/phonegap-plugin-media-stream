@@ -15,7 +15,6 @@
 }
 @property (nonatomic, assign) BOOL isAudio;
 @property (assign, nonatomic) NSString *camDirection;
-@property (assign, nonatomic) Float64 time;
 @property (assign, nonatomic) NSString *task;
 @property (assign, nonatomic) NSInteger flashModeValue;
 @property (strong,nonatomic) CDVMediaStream * mediaStreamInterface;
