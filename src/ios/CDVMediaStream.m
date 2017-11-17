@@ -182,7 +182,7 @@
             NSString *uuid = [[NSUUID UUID] UUIDString];
             [audioTracks setObject:uuid forKey:@"id"];
             [audioTracks setObject:@"audio" forKey:@"kind"];
-            [audioTracks setObject:device.deviceType forKey:@"description"];
+            [audioTracks setObject:device.localizedName forKey:@"label"];
             [arrayAudio addObject:audioTracks];
         }
         [userMedia setObject:arrayAudio forKey:@"audioTracks"];
