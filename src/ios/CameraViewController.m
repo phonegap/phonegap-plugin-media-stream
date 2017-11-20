@@ -9,7 +9,7 @@
 #import "CameraViewController.h"
 #import <AVFoundation/AVFoundation.h>
 #import "UIImage+DrawBlock.h"
-
+#import <Cordova/CDVPlugin+Resources.h>
 
 @interface CameraViewController () <UINavigationControllerDelegate, UIImagePickerControllerDelegate>
 @property (weak, nonatomic) IBOutlet UIView *bottomBarView;
