@@ -33,10 +33,14 @@
     NSArray *devices = [AVCaptureDevice devices];
     for (AVCaptureDevice *device in devices) {
         NSMutableDictionary *dict = [NSMutableDictionary dictionaryWithCapacity:5];
-        NSLog(@"%@", device.deviceType);
-        NSLog(@"%@", device.description);
-        [dict setObject:device.deviceType forKey:@"kind"];
-        [dict setObject:device.description forKey:@"label"];
+        NSString *kind = @"audio";
+        if ([[AVCaptureDevice devicesWithMediaType:AVMediaTypeVideo] containsObject:device]) {
+            kind = @"video";
+        }
+        NSLog(@"%@", kind);
+        NSLog(@"%@", device.localizedName);
+        [dict setObject:kind forKey:@"kind"];
+        [dict setObject:device.localizedName forKey:@"label"];
         [dict setObject:@"undefined" forKey:@"deviceID"];
         [dict setObject:@"undefined" forKey:@"groupID"];
         [array addObject:dict];
@@ -181,7 +185,7 @@
             NSMutableDictionary *audioTracks = [NSMutableDictionary dictionaryWithCapacity:5];
             [audioTracks setObject:device.uniqueID forKey:@"id"];
             [audioTracks setObject:@"audio" forKey:@"kind"];
-            [audioTracks setObject:device.deviceType forKey:@"label"];
+            [audioTracks setObject:device.localizedName forKey:@"label"];
             [audioTracks setObject: [NSNumber numberWithBool:YES] forKey:@"enabled"];
             [audioTracks setObject:[NSNumber numberWithBool:NO] forKey:@"muted"];
             [audioTracks setObject:@"live" forKey:@"readyState"];
