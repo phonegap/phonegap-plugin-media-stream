@@ -51,6 +51,7 @@ mediaDevices.getSupportedConstraints = function () {
         return this._supportedConstraints;
     } else {
         exec(successConstraints, null, 'Stream', 'getSupportedConstraints', []);
+        return this._supportedConstraints;
     }
 };
 
@@ -65,6 +66,7 @@ mediaDevices.enumerateDevices = function () {
             resolve(that._devices);
         } else {
             exec(successDevices, null, 'Stream', 'enumerateDevices', []);
+            resolve(that._devices);
         }
     });
 };
