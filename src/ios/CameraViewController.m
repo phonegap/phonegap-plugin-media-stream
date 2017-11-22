@@ -143,7 +143,8 @@
 -(void)changeFlashIcon
 {
     dispatch_async(dispatch_get_main_queue(), ^{
-        if([self.task isEqualToString:@"imageCapture"]){
+        if([self.task isEqualToString:@"imageCapture"] && [[self currentDevice] hasFlash]){
+            self.flashButton.hidden = NO;
             [self.flashButton setImage:[UIImage imageNamed:[self.flashImages objectAtIndex:self.flashMode]] forState:UIControlStateNormal];
         } else {
             self.flashButton.hidden = YES;
@@ -285,7 +286,9 @@
     NSError *error = nil;
     BOOL success = [device lockForConfiguration:&error];
     if (success) {
-        device.flashMode = self.flashMode;
+        if ([device isFlashModeSupported:self.flashMode]) {
+            device.flashMode = self.flashMode;
+        }
     }
     [device unlockForConfiguration];
 }
@@ -523,6 +526,7 @@ didFinishRecordingToOutputFileAtURL:(NSURL *)outputFileURL
     AVCaptureDeviceInput *input = [AVCaptureDeviceInput deviceInputWithDevice:device error:&error];
     if (!input) return;
     [self.session addInput:input];
+    [self setFlashMode:self.flashMode];
 }
 
 - (IBAction)flashButtonWasTouched:(id)sender
