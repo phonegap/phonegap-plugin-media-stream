@@ -27,6 +27,7 @@
 @property (nonatomic, assign) UIImageOrientation imageOrientation;
 @property (assign, nonatomic) AVCaptureFlashMode flashMode;
 @property (nonatomic, assign) BOOL videoStarted;
+@property (nonatomic, strong) NSArray * flashImages;
 @end
 
 
@@ -63,6 +64,8 @@
         self.cameraViewBottomConstraint.constant = -CGRectGetHeight(self.bottomBarView.frame);
         [self.cameraContainerView layoutIfNeeded];
     }
+
+    self.flashImages = @[@"flash-off",@"flash-on",@"flash-auto"];
 
     [self updateOrientation];
 }
@@ -128,9 +131,24 @@
 
 - (void)setFlashMode:(AVCaptureFlashMode)flashMode
 {
-    _flashMode = flashMode;
+    if (flashMode<3) {
+        _flashMode = flashMode;
+    } else {
+        _flashMode = AVCaptureFlashModeOff;
+    }
+    [self changeFlashIcon];
+    [self updateFlashlightState];
+}
 
-
+-(void)changeFlashIcon
+{
+    dispatch_async(dispatch_get_main_queue(), ^{
+        if([self.task isEqualToString:@"imageCapture"]){
+            [self.flashButton setImage:[UIImage imageNamed:[self.flashImages objectAtIndex:self.flashMode]] forState:UIControlStateNormal];
+        } else {
+            self.flashButton.hidden = YES;
+        }
+    });
 }
 
 /**
@@ -162,6 +180,7 @@
     [UIView animateWithDuration:.3 animations:^{
         self.takePhotoButton.transform = CGAffineTransformMakeRotation(angle);
         self.switchCamera.transform = CGAffineTransformMakeRotation(angle);
+        self.flashButton.transform = CGAffineTransformMakeRotation(angle);
     }];
 }
 
@@ -191,7 +210,7 @@
         if([self.camDirection isEqualToString:@"frontcamera"]){
             device = [self frontCamera];
         }
-        _flashMode = (AVCaptureFlashMode)self.flashModeValue;
+        [self setFlashMode:(AVCaptureFlashMode)self.flashModeValue];
         NSError *error = nil;
 
         AVCaptureDeviceInput *input = [AVCaptureDeviceInput deviceInputWithDevice:device error:&error];
@@ -486,6 +505,29 @@ didFinishRecordingToOutputFileAtURL:(NSURL *)outputFileURL
 - (IBAction)cancelButtonWasTouched:(id)sender
 {
     [self.presentingViewController dismissViewControllerAnimated:YES completion:nil];
+}
+
+- (IBAction)switchCameraButtonWasTouched:(id)sender
+{
+    for (AVCaptureInput *input in self.session.inputs) {
+        [self.session removeInput:input];
+    }
+    AVCaptureDevice *device = [AVCaptureDevice defaultDeviceWithMediaType:AVMediaTypeVideo];
+    if([self.camDirection isEqualToString:@"frontcamera"]){
+        self.camDirection = @"rearcamera";
+    } else {
+        device = [self frontCamera];
+        self.camDirection = @"frontcamera";
+    }
+    NSError *error = nil;
+    AVCaptureDeviceInput *input = [AVCaptureDeviceInput deviceInputWithDevice:device error:&error];
+    if (!input) return;
+    [self.session addInput:input];
+}
+
+- (IBAction)flashButtonWasTouched:(id)sender
+{
+    [self setFlashMode:self.flashMode+1];
 }
 
 - (void)orientationChanged:(NSNotification *)sender
