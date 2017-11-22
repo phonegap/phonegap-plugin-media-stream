@@ -15,9 +15,10 @@
 @property (weak, nonatomic) IBOutlet UIView *bottomBarView;
 @property (weak, nonatomic) IBOutlet UIView *cameraContainerView;
 @property (weak, nonatomic) IBOutlet UIButton *takePhotoButton;
-@property (weak, nonatomic) IBOutlet UIButton *cancelButton;
+@property (weak, nonatomic) IBOutlet UIButton *switchCamera;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *cameraViewBottomConstraint;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *bottomBarHeightConstraint;
+@property (weak, nonatomic) IBOutlet UIButton *flashButton;
 @property (strong, nonatomic) UIVisualEffectView *blurView;
 @property (nonatomic, strong) AVCaptureSession *session;
 @property (nonatomic, strong) UIView *capturePreviewView;
@@ -40,7 +41,6 @@
 
     // Initialize the capture queue
     self.captureQueue = [[NSOperationQueue alloc] init];
-    [self.cancelButton setTitle:[_mediaStreamInterface pluginLocalizedString:@"Cancel"] forState:UIControlStateNormal];
 
     // Initialise the blur effect used when switching between cameras
     UIBlurEffect *effect = [UIBlurEffect effectWithStyle:UIBlurEffectStyleLight];
@@ -161,7 +161,7 @@
 
     [UIView animateWithDuration:.3 animations:^{
         self.takePhotoButton.transform = CGAffineTransformMakeRotation(angle);
-        self.cancelButton.transform = CGAffineTransformMakeRotation(angle);
+        self.switchCamera.transform = CGAffineTransformMakeRotation(angle);
     }];
 }
 
@@ -483,11 +483,10 @@ didFinishRecordingToOutputFileAtURL:(NSURL *)outputFileURL
     return _image;
 }
 
-- (IBAction)cancelButtonWasTouched:(UIButton *)sender
+- (IBAction)cancelButtonWasTouched:(id)sender
 {
     [self.presentingViewController dismissViewControllerAnimated:YES completion:nil];
 }
-
 
 - (void)orientationChanged:(NSNotification *)sender
 {

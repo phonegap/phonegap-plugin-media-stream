@@ -1,11 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="12121" systemVersion="16F73" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="13529" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
     <device id="retina5_5" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
-        <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12089"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13527"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -15,7 +14,8 @@
                 <outlet property="bottomBarView" destination="BZp-h5-AmJ" id="o6j-Ht-ePa"/>
                 <outlet property="cameraContainerView" destination="PPI-1U-rNc" id="JOG-KR-uy6"/>
                 <outlet property="cameraViewBottomConstraint" destination="98F-sk-gP3" id="KHH-SJ-aeK"/>
-                <outlet property="cancelButton" destination="Ap0-9j-R4K" id="MOs-Xh-EUR"/>
+                <outlet property="flashButton" destination="Oti-nb-xQ1" id="1l7-eM-I5m"/>
+                <outlet property="switchCamera" destination="Ap0-9j-R4K" id="XZ0-Bw-TxV"/>
                 <outlet property="takePhotoButton" destination="VGJ-Mc-QDp" id="IdV-9r-ukH"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
@@ -42,16 +42,12 @@
                                 <action selector="takePhotoButtonWasTouched:" destination="-1" eventType="touchUpInside" id="LLt-8y-05P"/>
                             </connections>
                         </button>
-                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Ap0-9j-R4K">
-                            <rect key="frame" x="321" y="26" width="63" height="44"/>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Ap0-9j-R4K">
+                            <rect key="frame" x="368" y="26" width="16" height="44"/>
                             <constraints>
                                 <constraint firstAttribute="height" constant="44" id="kNQ-my-0uh"/>
                             </constraints>
-                            <fontDescription key="fontDescription" type="system" pointSize="20"/>
-                            <state key="normal" title="Cancel"/>
-                            <connections>
-                                <action selector="cancelButtonWasTouched:" destination="-1" eventType="touchUpInside" id="KMN-Qx-RAn"/>
-                            </connections>
+                            <state key="normal" image="switch-camera"/>
                         </button>
                     </subviews>
                     <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.40000000000000002" colorSpace="custom" customColorSpace="sRGB"/>
@@ -63,6 +59,27 @@
                         <constraint firstAttribute="trailing" secondItem="Ap0-9j-R4K" secondAttribute="trailing" constant="30" id="vs6-7o-MO3"/>
                     </constraints>
                 </view>
+                <toolbar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="QSv-bd-37z">
+                    <rect key="frame" x="0.0" y="0.0" width="414" height="44"/>
+                    <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
+                    <items>
+                        <barButtonItem systemItem="cancel" id="WBW-Va-dgH">
+                            <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            <connections>
+                                <action selector="cancelButtonWasTouched:" destination="-1" id="ycH-cB-s0F"/>
+                            </connections>
+                        </barButtonItem>
+                        <barButtonItem style="plain" systemItem="flexibleSpace" id="Rzg-mV-Chk"/>
+                        <barButtonItem style="plain" id="Htf-jv-ogh">
+                            <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="Oti-nb-xQ1">
+                                <rect key="frame" x="348" y="7" width="46" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            </button>
+                        </barButtonItem>
+                    </items>
+                    <color key="barTintColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                </toolbar>
             </subviews>
             <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
             <constraints>
@@ -77,4 +94,7 @@
             <point key="canvasLocation" x="-35" y="28"/>
         </view>
     </objects>
+    <resources>
+        <image name="switch-camera" width="16" height="16"/>
+    </resources>
 </document>
