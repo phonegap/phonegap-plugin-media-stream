@@ -75,8 +75,8 @@
                         <barButtonItem style="plain" systemItem="flexibleSpace" id="Rzg-mV-Chk"/>
                         <barButtonItem style="plain" id="Htf-jv-ogh">
                             <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="Oti-nb-xQ1">
-                                <rect key="frame" x="348" y="7" width="46" height="30"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <rect key="frame" x="364" y="7" width="30" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxY="YES"/>
                                 <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <connections>
                                     <action selector="flashButtonWasTouched:" destination="-1" eventType="touchUpInside" id="qgJ-cs-GRw"/>
