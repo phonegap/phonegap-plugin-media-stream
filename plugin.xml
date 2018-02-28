@@ -46,5 +46,17 @@
     <source-file src="src/ios/JPSCameraButton.m"/>
     <source-file src="src/ios/UIImage+DrawBlock.m"/>
     <resource-file src="src/ios/CameraViewController.xib"/>
+    <resource-file src="src/ios/icons/flash-auto.png"/>
+    <resource-file src="src/ios/icons/flash-auto@2x.png"/>
+    <resource-file src="src/ios/icons/flash-auto@3x.png"/>
+    <resource-file src="src/ios/icons/flash-on.png"/>
+    <resource-file src="src/ios/icons/flash-on@2x.png"/>
+    <resource-file src="src/ios/icons/flash-on@3x.png"/>
+    <resource-file src="src/ios/icons/flash-off.png"/>
+    <resource-file src="src/ios/icons/flash-off@2x.png"/>
+    <resource-file src="src/ios/icons/flash-off@3x.png"/>
+    <resource-file src="src/ios/icons/switch-camera.png"/>
+    <resource-file src="src/ios/icons/switch-camera@2x.png"/>
+    <resource-file src="src/ios/icons/switch-camera@3x.png"/>
   </platform>
 </plugin>

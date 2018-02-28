@@ -15,9 +15,10 @@
 @property (weak, nonatomic) IBOutlet UIView *bottomBarView;
 @property (weak, nonatomic) IBOutlet UIView *cameraContainerView;
 @property (weak, nonatomic) IBOutlet UIButton *takePhotoButton;
-@property (weak, nonatomic) IBOutlet UIButton *cancelButton;
+@property (weak, nonatomic) IBOutlet UIButton *switchCamera;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *cameraViewBottomConstraint;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *bottomBarHeightConstraint;
+@property (weak, nonatomic) IBOutlet UIButton *flashButton;
 @property (strong, nonatomic) UIVisualEffectView *blurView;
 @property (nonatomic, strong) AVCaptureSession *session;
 @property (nonatomic, strong) UIView *capturePreviewView;
@@ -26,6 +27,7 @@
 @property (nonatomic, assign) UIImageOrientation imageOrientation;
 @property (assign, nonatomic) AVCaptureFlashMode flashMode;
 @property (nonatomic, assign) BOOL videoStarted;
+@property (nonatomic, strong) NSArray * flashImages;
 @end
 
 
@@ -40,7 +42,6 @@
 
     // Initialize the capture queue
     self.captureQueue = [[NSOperationQueue alloc] init];
-    [self.cancelButton setTitle:[_mediaStreamInterface pluginLocalizedString:@"Cancel"] forState:UIControlStateNormal];
 
     // Initialise the blur effect used when switching between cameras
     UIBlurEffect *effect = [UIBlurEffect effectWithStyle:UIBlurEffectStyleLight];
@@ -63,6 +64,8 @@
         self.cameraViewBottomConstraint.constant = -CGRectGetHeight(self.bottomBarView.frame);
         [self.cameraContainerView layoutIfNeeded];
     }
+
+    self.flashImages = @[@"flash-off",@"flash-on",@"flash-auto"];
 
     [self updateOrientation];
 }
@@ -128,9 +131,25 @@
 
 - (void)setFlashMode:(AVCaptureFlashMode)flashMode
 {
-    _flashMode = flashMode;
+    if (flashMode<3) {
+        _flashMode = flashMode;
+    } else {
+        _flashMode = AVCaptureFlashModeOff;
+    }
+    [self changeFlashIcon];
+    [self updateFlashlightState];
+}
 
-
+-(void)changeFlashIcon
+{
+    dispatch_async(dispatch_get_main_queue(), ^{
+        if([self.task isEqualToString:@"imageCapture"] && [[self currentDevice] hasFlash]){
+            self.flashButton.hidden = NO;
+            [self.flashButton setImage:[UIImage imageNamed:[self.flashImages objectAtIndex:self.flashMode]] forState:UIControlStateNormal];
+        } else {
+            self.flashButton.hidden = YES;
+        }
+    });
 }
 
 /**
@@ -161,7 +180,8 @@
 
     [UIView animateWithDuration:.3 animations:^{
         self.takePhotoButton.transform = CGAffineTransformMakeRotation(angle);
-        self.cancelButton.transform = CGAffineTransformMakeRotation(angle);
+        self.switchCamera.transform = CGAffineTransformMakeRotation(angle);
+        self.flashButton.transform = CGAffineTransformMakeRotation(angle);
     }];
 }
 
@@ -191,7 +211,7 @@
         if([self.camDirection isEqualToString:@"frontcamera"]){
             device = [self frontCamera];
         }
-        _flashMode = (AVCaptureFlashMode)self.flashModeValue;
+        [self setFlashMode:(AVCaptureFlashMode)self.flashModeValue];
         NSError *error = nil;
 
         AVCaptureDeviceInput *input = [AVCaptureDeviceInput deviceInputWithDevice:device error:&error];
@@ -266,7 +286,9 @@
     NSError *error = nil;
     BOOL success = [device lockForConfiguration:&error];
     if (success) {
-        device.flashMode = self.flashMode;
+        if ([device isFlashModeSupported:self.flashMode]) {
+            device.flashMode = self.flashMode;
+        }
     }
     [device unlockForConfiguration];
 }
@@ -483,11 +505,34 @@ didFinishRecordingToOutputFileAtURL:(NSURL *)outputFileURL
     return _image;
 }
 
-- (IBAction)cancelButtonWasTouched:(UIButton *)sender
+- (IBAction)cancelButtonWasTouched:(id)sender
 {
     [self.presentingViewController dismissViewControllerAnimated:YES completion:nil];
 }
 
+- (IBAction)switchCameraButtonWasTouched:(id)sender
+{
+    for (AVCaptureInput *input in self.session.inputs) {
+        [self.session removeInput:input];
+    }
+    AVCaptureDevice *device = [AVCaptureDevice defaultDeviceWithMediaType:AVMediaTypeVideo];
+    if([self.camDirection isEqualToString:@"frontcamera"]){
+        self.camDirection = @"rearcamera";
+    } else {
+        device = [self frontCamera];
+        self.camDirection = @"frontcamera";
+    }
+    NSError *error = nil;
+    AVCaptureDeviceInput *input = [AVCaptureDeviceInput deviceInputWithDevice:device error:&error];
+    if (!input) return;
+    [self.session addInput:input];
+    [self setFlashMode:self.flashMode];
+}
+
+- (IBAction)flashButtonWasTouched:(id)sender
+{
+    [self setFlashMode:self.flashMode+1];
+}
 
 - (void)orientationChanged:(NSNotification *)sender
 {
