@@ -47,7 +47,7 @@ console.log(constraints);
 
 ## Quirks
 
-The iOS implementation that this plugin provides does not allow you to attach the returned `MediaStream` object to a `audio` or `video` tag. Rather you will use the `MeidaStream` object to get a `MediaStreamTrack` to pass to the Image (see [phonegap-plugin-image-capture](https://github.com/phonegap/phonegap-plugin-image-capture)) or Audio capture API.
+The iOS implementation that this plugin provides does not allow you to attach the returned `MediaStream` object to an `audio` or `video` tag. Rather you will use the `MediaStream` object to get a `MediaStreamTrack` to pass to the Image (see [phonegap-plugin-image-capture](https://github.com/phonegap/phonegap-plugin-image-capture)) or Audio capture API.
 
 ## [Contributing](.github/CONTRIBUTING.md)
 
