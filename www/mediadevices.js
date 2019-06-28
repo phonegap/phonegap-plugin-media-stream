@@ -20,57 +20,52 @@
 */
 /* globals Promise, cordova, MediaStream */
 var exec = cordova.require('cordova/exec');
+var channel = require('cordova/channel');
 var flagConstraints = true;
 var flagDevices = true;
-
 var mediaDevices = {
-    _devices: null
-};
-
-var supportedConstraints = {
-    width: true,
-    height: true,
-    aspectRatio: true,
-    frameRate: true,
-    facingMode: true,
-    volume: true,
-    sampleRate: true,
-    sampleSize: true,
-    echoCancellation: true,
-    latency: true,
-    channelCount: true,
-    deviceId: true,
-    groupId: true
+    _devices: [],
+    _supportedConstraints: {
+        width: true,
+        height: true,
+        aspectRatio: true,
+        frameRate: true,
+        facingMode: true,
+        volume: true,
+        sampleRate: true,
+        sampleSize: true,
+        echoCancellation: true,
+        latency: true,
+        channelCount: true,
+        deviceId: true,
+        groupId: true
+    }
 };
 
 mediaDevices.getSupportedConstraints = function () {
-    var success = function (constraints) {
-        console.log('constraints: ' + JSON.stringify(constraints));
-        supportedConstraints = constraints;
+    var successConstraints = function (constraints) {
+        mediaDevices._supportedConstraints = constraints;
+        flagConstraints = false;
     };
-
-    // assign new values returned from native ios ; until then default values returned
-    if (flagConstraints) {
-        exec(success, null, 'Stream', 'getSupportedConstraints', []);
+    if (!flagConstraints) {
+        return this._supportedConstraints;
+    } else {
+        exec(successConstraints, null, 'Stream', 'getSupportedConstraints', []);
+        return this._supportedConstraints;
     }
-
-    flagConstraints = false;
-    return supportedConstraints;
 };
 
 mediaDevices.enumerateDevices = function () {
     var that = this;
     return new Promise(function (resolve, reject) {
-        var success = function (device) {
+        var successDevices = function (device) {
+            mediaDevices._devices = device.devices;
             flagDevices = false;
-            console.log('success ' + device.devices);
-            that._devices = device.devices;
-            resolve(that._devices);
         };
-
-        if (flagDevices) {
-            exec(success, null, 'Stream', 'enumerateDevices', []);
+        if (!flagDevices) {
+            resolve(that._devices);
         } else {
+            exec(successDevices, null, 'Stream', 'enumerateDevices', []);
             resolve(that._devices);
         }
     });
@@ -95,5 +90,18 @@ mediaDevices.getUserMedia = function (constraints) {
         }
     });
 };
+
+channel.onCordovaReady.subscribe(function () {
+    var successConstraints = function (constraints) {
+        mediaDevices._supportedConstraints = constraints;
+        flagConstraints = false;
+    };
+    var successDevices = function (device) {
+        mediaDevices._devices = device.devices;
+        flagDevices = false;
+    };
+    exec(successConstraints, null, 'Stream', 'getSupportedConstraints', []);
+    exec(successDevices, null, 'Stream', 'enumerateDevices', []);
+});
 
 module.exports = mediaDevices;
